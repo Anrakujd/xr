@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>GXR | Basic Geometry</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- A-Frame (WebXR) -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <!-- Style -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <h1>GXR</h1>
+    <h2>WebXR-Based Immersive Learning Environment for Geometry Education</h2>
+  </header>
+
+  <!-- MENU -->
+  <section class="menu">
+    <button onclick="enterXR()">Enter XR Mode</button>
+    <button onclick="resetScene()">Reset</button>
+	<button onclick="">Lessons</button>
+    <button onclick="">Quiz</button>
+	<button onclick="">About</button>
+  </section>
+
+  <!-- WEBXR SCENE -->
+  <a-scene
+    embedded
+    vr-mode-ui="enabled: true"
+    renderer="antialias: true"
+    webxr="optionalFeatures: hit-test, local-floor"
+  >
+
+    <!-- CAMERA -->
+    <a-entity camera look-controls position="0 1.6 3"></a-entity>
+
+    <!-- LIGHT -->
+    <a-entity light="type: ambient; intensity: 0.6"></a-entity>
+    <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
+
+    <!-- FUTURISTIC GRID -->
+    <a-grid
+      position="0 0 0"
+      rotation="-90 0 0"
+      color="#00ffff"
+    ></a-grid>
+	<a-sky color="#02030f"></a-sky>
+    <!-- GEOMETRY OBJECT -->
+    <a-box
+		id="cube"
+		position="0 1 -2"
+		depth="1"
+		height="1"
+		width="1"
+		color="#00ffff"
+		material="emissive: #00ffff; emissiveIntensity: 0.5"
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 8000"
+	></a-box>
+
+
+    <!-- LABEL -->
+    <a-text
+      value="CUBE"
+      position="0 2.3 -2"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<a-sphere
+		position="-5 3 -15"
+		radius="1.2"
+		material="color: #4b9cff; emissive: #1a2b6d; opacity: 0.9"
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 60000"
+	></a-sphere>
+
+	<a-sphere	
+		position="6 5 -20"
+		radius="0.8"
+		material="color: #ff7b00; emissive: #552200"
+		animation="property: rotation; to: 360 0 0; loop: true; dur: 50000"
+	></a-sphere>
+	
+	<a-entity id="stars">
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="3 4 -6"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+
+	<a-entity
+		geometry="primitive: sphere; radius: 0.02"
+		material="color: #ffffff"
+		position="-4 6 -8"
+		animation="property: position; to: 4 1 -12; loop: true; dur: 25000"
+	></a-entity>
+
+  <a-entity
+    geometry="primitive: sphere; radius: 0.04"
+    material="color: #00ffff"
+    position="0 8 -15"
+    animation="property: rotation; to: 0 360 0; loop: true; dur: 40000"
+  ></a-entity>
+</a-entity>
+
+
+  </a-scene>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Djukarna | Immersive Learning System</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    function enterXR() {
+      const scene = document.querySelector("a-scene");
+      if (scene.hasLoaded) {
+        scene.enterVR(); // AR / VR tergantung device
+      }
+    }
+
+    function resetScene() {
+      const cube = document.getElementById("cube");
+      cube.setAttribute("rotation", "0 0 0");
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: "Orbitron", Arial, sans-serif;
+  background: radial-gradient(circle at top, #020024, #000);
+  color: #00ffff;
+  text-align: center;
+}
+
+
+.header {
+  padding: 16px;
+  border-bottom: 1px solid #00ffff55;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+
+.header p {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.menu {
+  margin: 12px 0;
+}
+
+.menu button {
+  background: transparent;
+  border: 1px solid #00ffff;
+  color: #00ffff;
+  padding: 10px 18px;
+  margin: 6px;
+  font-size: 19px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu button:hover {
+  background: #00ffff;
+  color: #000;
+  box-shadow: 0 0 15px #00ffff;
+}
+
+a-scene {
+  height: 60vh;
+  border-top: 1px solid #00ffff33;
+  border-bottom: 1px solid #00ffff33;
+  box-shadow: inset 0 0 40px #00ffff33;
+}
+
+footer {
+  font-size: 20px;
+  padding: 10px;
+  opacity: 0.6;
+}
