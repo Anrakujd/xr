@@ -1,16 +1,76 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <title>DMR | Basic Geometry</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- A-Frame (WebXR) -->
+  <meta charset="UTF-8">
+  <title>Kubus Rotasi dengan Cursor</title>
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
-  <!-- Style -->
-  <link rel="stylesheet" href="style.css">
+  <script>
+    AFRAME.registerComponent('rotate-y-cursor', {
+      schema: { speed: { default: 0.4 } },
+
+      init: function () {
+        this.dragging = false;
+        this.prevX = 0;
+
+        this.el.addEventListener('mousedown', e => {
+          this.dragging = true;
+          this.prevX = e.detail.cursorEl.components.cursor.mouse.x;
+        });
+
+        this.el.addEventListener('mouseup', () => {
+          this.dragging = false;
+        });
+
+        this.el.sceneEl.addEventListener('mousemove', e => {
+          if (!this.dragging) return;
+
+          let x = e.detail?.cursor?.mouse?.x;
+          if (x === undefined) return;
+
+          let deltaX = x - this.prevX;
+          this.prevX = x;
+
+          let rotation = this.el.getAttribute('rotation');
+          rotation.y += deltaX * this.data.speed;
+          this.el.setAttribute('rotation', rotation);
+        });
+      }
+    });
+  </script>
 </head>
 
 <body>
-<h1> Ini Kubus ! </h1>
+  <a-scene background="color: #ECECEC">
+
+    <!-- Kamera + Cursor -->
+    <a-entity camera position="0 3 6">
+      <a-cursor 
+        raycaster="objects: .clickable"
+        material="color: black; shader: flat">
+      </a-cursor>
+    </a-entity>
+
+    <!-- Kubus 2x2x2 -->
+    <a-box 
+      class="clickable"
+      position="0 1 0"
+      width="2" height="2" depth="2"
+      color="#4CC3D9"
+      rotate-y-cursor>
+    </a-box>
+
+    <!-- Lantai -->
+    <a-plane 
+      rotation="-90 0 0"
+      width="10" height="10"
+      color="#AAA">
+    </a-plane>
+
+    <!-- Cahaya -->
+    <a-light type="directional" position="1 4 2"></a-light>
+    <a-light type="ambient" intensity="0.5"></a-light>
+
+  </a-scene>
 </body>
+</html>
