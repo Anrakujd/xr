@@ -1,12 +1,48 @@
 <!DOCTYPE html>
+
+<!-- ************************************************************ -->
+<!-- **        Fakultas Keguruan & Ilmu Pendidikan UNPAR       ** -->
+<!-- ** Program Studi Pendidikan Teknik Informatika & Komputer ** -->
+<!-- **                   Dibuat Oleh :                        ** -->
+<!-- **                     Djukarna                           ** -->
+<!-- **                       Murni                            ** -->
+<!-- **               Ratih Kusumo Wardhani                    ** -->
+<!-- **                    Desember 2025                       ** -->
+<!-- ************************************************************ -->
+
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>GXR | Basic Geometry</title>
+  <title>DMR | Basic Geometry</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- A-Frame (WebXR) -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script>
+	AFRAME.registerComponent('custom-prisma', {
+		init: function () {
+		const shape = new THREE.Shape();
+		shape.moveTo(0, 0);
+		shape.lineTo(1, 0);
+		shape.lineTo(0.5, 0.8);
+		shape.lineTo(0, 0);
+		const geometry = new THREE.ExtrudeGeometry(shape, {
+			depth: 1,
+			bevelEnabled: false
+    });
+		const material = new THREE.MeshStandardMaterial({
+		color: 0x00ff00,
+		metalness: 0.2,
+		roughness: 0.4
+    });
+		const mesh = new THREE.Mesh(geometry, material);
+		//mesh.rotation.x = -Math.PI;
+		mesh.scale.set(0.8, 0.8, 0.8);
+
+		this.el.setObject3D('mesh', mesh);
+	}
+	});
+	</script>
 
   <!-- Style -->
   <link rel="stylesheet" href="style.css">
@@ -15,7 +51,7 @@
 <body>
   <!-- HEADER -->
   <header class="header">
-    <h1>GXR</h1>
+    <h1>DMR</h1>
     <h2>WebXR-Based Immersive Learning Environment for Geometry Education</h2>
   </header>
 
@@ -25,7 +61,7 @@
     <button onclick="resetScene()">Reset</button>
 	<!--button onclick="">Lessons</button>
     <button onclick="">Quiz</button-->
-	<button onclick="">About</button>
+	<button onclick="halaman_about()">About</button>
   </section>
 
   <!-- WEBXR SCENE -->
@@ -35,9 +71,17 @@
     renderer="antialias: true"
     webxr="optionalFeatures: hit-test, local-floor"
   >
+	<!-- Kamera + cursor -->
+	<a-entity camera look-controls>
+		<a-cursor 
+			fuse="true"
+			fuse-timeout="1500"
+			color="red">
+		</a-cursor>
+	</a-entity>
 
     <!-- CAMERA -->
-    <a-entity camera look-controls position="0 1.6 3"></a-entity>
+    <a-entity camera look-controls position="0 0 0"></a-entity>
 
     <!-- LIGHT -->
     <a-entity light="type: ambient; intensity: 0.6"></a-entity>
@@ -46,16 +90,16 @@
     <!-- FUTURISTIC GRID -->
     <a-grid
       position="0 0 0"
-      rotation="-90 0 0"
+      rotation="0 0 0"
       color="#00ffff"
     ></a-grid>
 	<a-sky color="#02030f"></a-sky>
-	  
+	
     <!-- GEOMETRY OBJECT -->
-	<!-- Kubus -->
+	<!-- Kubus-->
     <a-box
-		id="cube"
-		position="0 1 -2"
+		id="kubus"
+		position="0 2 -5"
 		depth="1"
 		height="1"
 		width="1"
@@ -63,47 +107,229 @@
 		material="emissive: #00ffff; emissiveIntensity: 0.5"
 		animation="property: rotation; to: 0 360 0; loop: true; dur: 8000"
 	></a-box>
-
-	<!-- balok -->
-    <a-box
-		id="cube"
-		position="0 1 -5"
-		depth="1"
-		height="1"
-		width="1"
-		color="#ff0000"
-		material="emissive: #00ffff; emissiveIntensity: 0.5"
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 7000"
-	></a-box>
-
-    <!-- LABEL -->
+    <!-- LABEL kubus-->
     <a-text
       value="CUBE"
-      position="0 2.3 -2"
+      position="0 3.5 -5"
       align="center"
       color="#00ffff"
       width="4"
     ></a-text>
 	
-	<a-sphere
-		position="-5 3 -15"
-		radius="1.2"
-		material="color: #4b9cff; emissive: #1a2b6d; opacity: 0.9"
-		animation="property: rotation; to: 0 360 0; loop: true; dur: 60000"
-	></a-sphere>
-
-	<a-sphere	
-		position="6 5 -20"
-		radius="0.8"
-		material="color: #ff7b00; emissive: #552200"
-		animation="property: rotation; to: 360 0 0; loop: true; dur: 50000"
-	></a-sphere>
+	<!-- Pelat -->
+	<a-box
+		id="pelat"
+		position="5 -1 -5"
+		depth="1"
+		height="0.15"
+		width="3"
+		color="#700010"
+		material="emissive: #00ffff; emissiveIntensity: 0.5"
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 6000"
+	></a-box>
+	<!-- label plate -->
+	 <a-text
+      value="SLAB"
+      position="5 0 -5"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
 	
+	<!-- balok -->
+	<a-box 
+		id="balok"
+		position="-5 -1 -5"
+		width="3"
+		height="0.5"
+		depth="0.5"
+		color="#FFC65D"
+		animation="property: rotation; to: 360 0 0; loop: true; dur: 10000"
+	></a-box>
+    <!-- LABEL balok -->
+    <a-text
+      value="BIlLET"
+      position="-5 0 -5"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<!-- bola -->
+	<a-sphere
+		position="0 -3 -5"
+		radius="0.75"
+		material="color: #4b9cff; emissive: #1a2b6d; opacity: 0.9"
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 6000"
+	></a-sphere>
+	<!-- LABEL bola -->
+    <a-text
+      value="BOLA"
+      position="0 -2 -5"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<!-- Tabung -->
+	<a-cylinder
+		position="-5 -3 -5"
+		radius="0.6"
+		height="1.5"
+		segments-radial="64"
+		color="#0000ff"
+		animation="property: rotation; to: 360 360 0; loop: true; dur: 6000">
+	</a-cylinder>
+	<!-- LABEL bola -->
+    <a-text
+      value="CYLINDER"
+      position="-5 -2 -5"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<!-- Limas -->
+	<a-entity
+		geometry="primitive: cone; radiusBottom: 1; height: 2; segmentsRadial: 3"
+		material="color: #FF0000"
+		position="-5 2 -5"
+		rotation="0 45 0"
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+	</a-entity>
+	<!-- LABEL Limas -->
+    <a-text
+      value="LIMAS"
+      position="-5 3.5 -5"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<!-- Kerucut -->
+	<a-entity
+		geometry="primitive: cone; radiusBottom: 0.5; height: 1; segmentsRadial: 64"
+		material="color: #FFFF00"
+		position="5 -3 -5"
+		rotation="0 45 0"
+		animation="property: rotation; to: 360 360 0; loop: true; dur: 6000">
+	</a-entity>
+	<!-- LABEL Limas -->
+    <a-text
+      value="CONE"
+      position="5 -2 -5"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<!-- PRISMA -->
+	<a-entity 
+		custom-prisma position="5 1.5 -5"
+		material="color: #00FF00"
+		animation="property: rotation; to: 0 360 0; loop: true; dur: 6000"></a-entity>
+	<!-- LABEL Limas -->
+    <a-text
+      value="PRISMA"
+      position="5 3.5 -5"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<!-- point mouse -->
+    <a-text
+      value="Pilih"
+      position="0 0.5 -5"
+      align="center"
+      color="#ffffff"
+      width="10"
+    ></a-text>
+	<a-text
+      value="Objek !"
+      position="0 -0.5 -5"
+      align="center"
+      color="#ffffff"
+      width="10"
+    ></a-text>
+
+	
+	<!-- Background bintang-bintang -->
 	<a-entity id="stars">
 		<a-entity
 			geometry="primitive: sphere; radius: 0.03"
 			material="color: #ffffff; emissive: #00ffff"
 			position="3 4 -6"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="1 1 -8"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="3 -4 -10"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="3 0 -8"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="3 5 -7"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="3 -4 -6"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="-3 4 -6"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="0 4 -6"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #00ffff"
+			position="-5 -1 -6"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.03"
+			material="color: #ffffff; emissive: #ffffff"
+			position="-5 -5 -6"
+			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
+		></a-entity>
+		
+		<a-entity
+			geometry="primitive: sphere; radius: 0.05"
+			material="color: #ffffff; emissive: #ff00ff"
+			position="-4 -4 -7"
 			animation="property: position; to: -3 2 -10; loop: true; dur: 20000"
 		></a-entity>
 
@@ -122,13 +348,12 @@
   ></a-entity>
 </a-entity>
 
-
   </a-scene>
 
-  <!-- FOOTER -->
-  <footer>
+ <!-- FOOTER -->
+ <footer>
     <p>© 2025 Djukarna | Immersive Learning System</p>
-  </footer>
+ </footer>
 
   <!-- SCRIPT -->
   <script>
@@ -143,9 +368,26 @@
       const cube = document.getElementById("cube");
       cube.setAttribute("rotation", "0 0 0");
     }
+	
+	function halaman_about(){
+		window.location.href = "about.html";
+	}
+	
+	document.querySelector('#kubus')
+    .addEventListener('click', function () {
+      window.location.href = 'kubus.html';
+    });
+	
+	document.querySelector('#balok')
+    .addEventListener('click', function () {
+      window.location.href = 'balok.html';
+    });
+	
+	document.querySelector('#pelat')
+    .addEventListener('click', function () {
+      window.location.href = 'pelat.html';
+    });
   </script>
 
 </body>
 </html>
-
-
