@@ -8,6 +8,7 @@
 <!-- **                       Murni                            ** -->
 <!-- **               Ratih Kusumo Wardhani                    ** -->
 <!-- **                    Desember 2025                       ** -->
+<!-- **                    Lisensi CC BY                       ** -->
 <!-- ************************************************************ -->
 
 <html lang="id">
@@ -254,7 +255,7 @@
     ></a-text>
 
 	
-	<!-- Background bintang-bintang -->
+	<!-- Background bintang-bintang >
 	<a-entity id="stars">
 		<a-entity
 			geometry="primitive: sphere; radius: 0.03"
@@ -338,7 +339,7 @@
 		material="color: #ffffff"
 		position="-4 6 -8"
 		animation="property: position; to: 4 1 -12; loop: true; dur: 25000"
-	></a-entity>
+	></a-entity-->
 
   <a-entity
     geometry="primitive: sphere; radius: 0.04"
@@ -353,6 +354,7 @@
  <!-- FOOTER -->
  <footer>
     <p>© 2025 Djukarna | Immersive Learning System</p>
+	<p> Licensed: CC BY 4.0 </p>
  </footer>
 
   <!-- SCRIPT -->
@@ -365,7 +367,7 @@
     }
 
     function resetScene() {
-      const cube = document.getElementById("cube");
+      const cube = document.getElementById("#kubus");
       cube.setAttribute("rotation", "0 0 0");
     }
 	
@@ -391,4 +393,3 @@
 
 </body>
 </html>
-
