@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>WebXR | Jaring-jaring Kubus Isometri</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <script>
+    AFRAME.registerComponent('toggle-net', {
+      init: function () {
+        this.open = false;
+        this.el.addEventListener('click', () => {
+          this.open = !this.open;
+          const t = this.open ? 1 : 0;
+
+          this.el.querySelector('#top').setAttribute('position', `0 ${1 + t} 0`);
+          this.el.querySelector('#bottom').setAttribute('position', `0 ${-1 - t} 0`);
+          this.el.querySelector('#left').setAttribute('position', `${-1 - t} 0 0`);
+          this.el.querySelector('#right').setAttribute('position', `${1 + t} 0 0`);
+          this.el.querySelector('#front').setAttribute('position', `0 0 ${1 + t}`);
+          this.el.querySelector('#back').setAttribute('position', `0 0 ${-1 - t}`);
+        });
+      }
+    });
+
+    AFRAME.registerComponent('drag-rotate', {
+      init: function () {
+        let lastX = null;
+        let lastY = null;
+
+        this.el.sceneEl.addEventListener('mousedown', e => {
+          lastX = e.clientX;
+          lastY = e.clientY;
+        });
+
+        this.el.sceneEl.addEventListener('mousemove', e => {
+          if (lastX !== null) {
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            const rot = this.el.getAttribute('rotation');
+            this.el.setAttribute('rotation', {
+              x: rot.x + dy * 0.3,
+              y: rot.y + dx * 0.3,
+              z: rot.z
+            });
+            lastX = e.clientX;
+            lastY = e.clientY;
+          }
+        });
+
+        window.addEventListener('mouseup', () => {
+          lastX = null;
+          lastY = null;
+        });
+      }
+    });
+  </script>
+</head>
+
+<body>
+<a-scene cursor="rayOrigin: mouse">
+
+  <!-- Kamera -->
+  <a-entity camera position="0 0 6"></a-entity>
+
+  <!-- Container dengan rotasi isometri -->
+  <a-entity id="cubeRoot"
+            position="0 0 0"
+            rotation="35 45 0"
+            toggle-net
+            drag-rotate>
+
+    <a-box id="top" position="0 1 0" rotation="-90 0 0"
+             width="2" height="2" depth = "0.1" color="#FFD166"></a-box>
+
+    <a-box id="bottom" position="0 -1 0" rotation="90 0 0"
+             width="2" height="2" depth = "0.1" color="#FFD166"></a-box>
+
+    <a-box id="left" position="-1 0 0" rotation="0 90 0"
+             width="2" height="2" depth = "0.1" color="#06D6A0"></a-box>
+
+    <a-box id="right" position="1 0 0" rotation="0 -90 0"
+             width="2" height="2" depth = "0.1" color="#06D6A0"></a-box>
+
+    <a-box id="front" position="0 0 1"
+             width="2" height="2" depth = "0.1" color="#118AB2"></a-box>
+
+    <a-box id="back" position="0 0 -1" rotation="0 180 0"
+             width="2" height="2" depth = "0.1" color="#118AB2"></a-box>
+
+  </a-entity>
+
+</a-scene>
+</body>
+</html>
