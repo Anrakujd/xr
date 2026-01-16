@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>WebXR | Rusuk Kubus</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <script>
+    //fungsi javascript untuk klik kubus buka dan klik kubus tutup
+	AFRAME.registerComponent('cube-net', {
+      init: function () {
+        this.isOpen = false;
+        this.faces = this.el.children;
+
+        this.el.addEventListener('click', () => {
+          this.isOpen = !this.isOpen;
+
+          const positionsClosed = [
+			'2 0 -1',  	// rusuk merah 1
+			'-2 0 -1',	// rusuk merah 2
+			'2 0 3',	// rusuk merah 3
+			'-2 0 3',	// rusuk merah 4
+			'0 2 -1',	// rusuk hijau 1
+			'0 -2 -1',	// rusuk hijau 2
+			'0 2 3',  	// rusuk hijau 3
+            '0 -2 3',	// rusuk hijau 4
+            '2 2 1',	// rusuk biru 1
+            '-2 2 1',	// rusuk biru 2
+            '2 -2 1',	// rusuk biru 3
+            '-2 -2 1'	// rusuk biru 4
+          ];
+
+          const positionsOpen = [
+			'1 0 0',  	// rusuk merah 1
+            '-1 0 0',	// rusuk merah 2
+            '1 0 2',	// rusuk merah 3
+            '-1 0 2',	// rusuk merah 4
+            '0 1 0',	// rusuk hijau 1
+            '0 -1 0',	// rusuk hijau 2
+			'0 1 2',  	// rusuk hijau 3
+            '0 -1 2',	// rusuk hijau 4
+            '1 1 1',	// rusuk biru 1
+            '-1 1 1',	// rusuk biru 2
+            '1 -1 1',	// rusuk biru 3
+            '-1 -1 1'	// rusuk biru 4
+          ];
+
+          for (let i = 0; i < this.faces.length; i++) {
+            this.faces[i].setAttribute('animation', {
+              property: 'position',
+              to: this.isOpen ? positionsOpen[i] : positionsClosed[i],
+              dur: 100,
+              easing: 'easeInOutQuad'
+            });
+          }
+        });
+      }
+    });
+	
+	//fungsi javascript untuk memutar pada sumbu Y dengan mouse
+	 AFRAME.registerComponent('rotate-y-mouse', {
+      schema: { speed: { default: 0.003 } },
+
+      init: function () {
+        this.dragging = false;
+        this.prevX = 0;
+
+        window.addEventListener('mousedown', e => {
+          this.dragging = true;
+          this.prevX = e.clientX;
+        });
+
+        window.addEventListener('mouseup', () => {
+          this.dragging = false;
+        });
+
+        window.addEventListener('mousemove', e => {
+          if (!this.dragging) return;
+
+          //let deltaX = e.clientX - this.prevX;
+          //this.prevX = e.clientX;
+		  
+		  let deltaX = e.clientX;
+          this.prevX = e.clientX;
+
+          let rotation = this.el.getAttribute('rotation');
+          rotation.y += deltaX * this.data.speed;
+          this.el.setAttribute('rotation', rotation);
+        });
+      }
+    });
+	
+	//fungsi javascript untuk memutar pada sumbu X dengan mouse
+	AFRAME.registerComponent('rotate-x-mouse', {
+      schema: { speed: { default: 0.003 } },
+
+      init: function () {
+        this.dragging = false;
+        this.prevY = 0;
+
+        window.addEventListener('mousedown', e => {
+          this.dragging = true;
+          this.prevY = e.clientY;
+        });
+
+        window.addEventListener('mouseup', () => {
+          this.dragging = false;
+        });
+
+        window.addEventListener('mousemove', e => {
+          if (!this.dragging) return;
+
+          //let deltaY = e.clientY - this.prevY;
+          //this.prevY = e.clientY;
+		  
+		  let deltaY = e.clientY;
+          this.prevY = e.clientY;
+
+          let rotation = this.el.getAttribute('rotation');
+          rotation.x += deltaY * this.data.speed;
+          this.el.setAttribute('rotation', rotation);
+        });
+      }
+    });
+	//rotate isometri
+	AFRAME.registerComponent('drag-rotate', {
+      init: function () {
+        let lastX = null;
+        let lastY = null;
+
+        this.el.sceneEl.addEventListener('mousedown', e => {
+          lastX = e.clientX;
+          lastY = e.clientY;
+        });
+
+        this.el.sceneEl.addEventListener('mousemove', e => {
+          if (lastX !== null) {
+            const dx = e.clientX - lastX;
+            const dy = e.clientY - lastY;
+            const rot = this.el.getAttribute('rotation');
+            this.el.setAttribute('rotation', {
+              x: rot.x + dy * 0.3,
+              y: rot.y + dx * 0.3,
+              z: rot.z
+            });
+            lastX = e.clientX;
+            lastY = e.clientY;
+          }
+        });
+
+        window.addEventListener('mouseup', () => {
+          lastX = null;
+          lastY = null;
+        });
+      }
+    });
+	
+  </script>
+</head>
+
+<body>
+  <a-scene cursor="rayOrigin: mouse">
+	<a-sky color="#02030f"></a-sky>
+	
+    <a-entity camera look-controls position="0 4 6">
+      <a-cursor fuse="true"
+			fuse-timeout="1500"
+			color="white"></a-cursor>
+    </a-entity>
+	
+	<a-entity light="type: ambient; intensity: 0.6"></a-entity>
+    <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
+
+    <!-- Rusuk merah -->
+    <a-entity cube-net position="0 4 -1" rotate-x-mouse rotate-y-mouse >
+    <a-box id="M1" position="1 0 0" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+			 
+	<a-box id="M2" position="-1 0 0" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+			 
+	<a-box id="M3" position="1 0 2" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+			 
+	<a-box id="M4" position="-1 0 2" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+			 
+	<!-- Rusuk hijau -->
+    <a-box id="H1" position="0 1 0" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+			 
+	<a-box id="H2" position="0 -1 0" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+			 
+	<a-box id="H3" position="0 1 2" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+			 
+	<a-box id="H4" position="0 -1 2" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+			 
+	<!-- Rusuk Biru -->
+	<a-box id="B1" position="1 1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+	<a-box id="B2" position="-1 1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+	<a-box id="B3" position="1 -1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+	<a-box id="B4" position="-1 -1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+   
+    </a-entity>
+
+    <!--a-plane rotation="-90 0 0" width="10" height="10" color="#ECECEC"></a-plane-->
+    <a-light type="ambient" intensity="0.7"></a-light>
+    <a-light type="directional" position="1 3 2"></a-light>
+
+  </a-scene>
+</body>
+</html>
