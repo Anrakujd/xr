@@ -8,7 +8,8 @@
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
   <script>
-    AFRAME.registerComponent('cube-net', {
+    //fungsi javascript untuk klik kubus buka dan klik kubus tutup
+	AFRAME.registerComponent('cube-net', {
       init: function () {
         this.isOpen = false;
         this.faces = this.el.children;
@@ -17,21 +18,21 @@
           this.isOpen = !this.isOpen;
 
           const positionsClosed = [
-            '0 2 0',   	// merah
-            '0 -2 0',  	// hijau
-            '-2 0 0',  	// biru
-            '2 0 0',   	// kuning
-            '0 0 2',  	// toska
-            '0 0 -2'   	// ungu
+            '0 2 0',   	// sisi merah
+            '0 -2 0',  	// sisi hijau
+            '-2 0 0',  	// sisi biru
+            '2 0 0',   	// sisi kuning
+            '0 0 2',  	// sisi toska
+            '0 0 -2'   	// sisi ungu
           ];
 
           const positionsOpen = [
-            '0 1 0',  	// merah
-            '0 -1 0',	// hijau
-            '-1 0 0',	// biru
-            '1 0 0',	// kuning
-            '0 0 1',	// toska
-            '0 0 -1'	// Ungu
+            '0 1 0',  	// sisi merah
+            '0 -1 0',	// sisi hijau
+            '-1 0 0',	// sisi biru
+            '1 0 0',	// sisi kuning
+            '0 0 1',	// sisi toska
+            '0 0 -1'	// sisi Ungu
           ];
 
           for (let i = 0; i < this.faces.length; i++) {
@@ -46,8 +47,9 @@
       }
     });
 	
+	//fungsi javascript untuk memutar pada sumbu Y dengan mouse
 	 AFRAME.registerComponent('rotate-y-mouse', {
-      schema: { speed: { default: 0.3 } },
+      schema: { speed: { default: 0.003 } },
 
       init: function () {
         this.dragging = false;
@@ -65,7 +67,10 @@
         window.addEventListener('mousemove', e => {
           if (!this.dragging) return;
 
-          let deltaX = e.clientX - this.prevX;
+          //let deltaX = e.clientX - this.prevX;
+          //this.prevX = e.clientX;
+		  
+		  let deltaX = e.clientX;
           this.prevX = e.clientX;
 
           let rotation = this.el.getAttribute('rotation');
@@ -75,8 +80,9 @@
       }
     });
 	
+	//fungsi javascript untuk memutar pada sumbu X dengan mouse
 	AFRAME.registerComponent('rotate-x-mouse', {
-      schema: { speed: { default: 0.3 } },
+      schema: { speed: { default: 0.003 } },
 
       init: function () {
         this.dragging = false;
@@ -94,7 +100,10 @@
         window.addEventListener('mousemove', e => {
           if (!this.dragging) return;
 
-          let deltaY = e.clientY - this.prevY;
+          //let deltaY = e.clientY - this.prevY;
+          //this.prevY = e.clientY;
+		  
+		  let deltaY = e.clientY;
           this.prevY = e.clientY;
 
           let rotation = this.el.getAttribute('rotation');
@@ -120,8 +129,7 @@
     <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
 
     <!-- Kubus / Jaring-jaring -->
-    <a-entity cube-net position="0 0 -5"  rotate-x-mouse
-	  rotate-y-mouse>
+    <a-entity cube-net position="0 4 -2"  rotate-x-mouse rotate-y-mouse>
     <a-box id="top" position="0 1 0" rotation="90 0 0"
              width="2" height="2" depth="0.01" color="#FF0000"></a-box>
 
