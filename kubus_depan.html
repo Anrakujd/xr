@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!-- ************************************************************ -->
+<!-- **        Fakultas Keguruan & Ilmu Pendidikan UNPAR       ** -->
+<!-- ** Program Studi Pendidikan Teknik Informatika & Komputer ** -->
+<!-- **                   Dibuat Oleh :                        ** -->
+<!-- **                     Djukarna                           ** -->
+<!-- **                       Murni                            ** -->
+<!-- **               Ratih Kusumo Wardhani                    ** -->
+<!-- **                    Desember 2025                       ** -->
+<!-- **                    Lisensi CC BY                       ** -->
+<!-- ************************************************************ -->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>WebXR | KUBUS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<!-- Style -->
+ <link rel="stylesheet" href="style.css"> 
+</head>
+
+<body>
+<header class="header">
+    <h1>KUBUS</h1>
+    <h2>"Kubus adalah bangun ruang 3 dimensi yang dibatasi oleh 6 sisi berbentuk
+	persegi yang kongruen (sama besar dan sama bentuk), memiliki 12 rusuk yang sama panjang"</h2>
+	<h2>"Pilih bangunan kubus berikut ini untuk melihat animasi sisi, rusuk dan jaring-jaring kubus!"</h2>
+</header>
+ 
+ <!-- MENU -->
+ <section class="menu">
+    <button onclick="enterXR()">Masuk ke XR Mode</button>
+    <button onclick="back()">Sebelumnya</button>
+	<!--button onclick="">Lessons</button>
+    <button onclick="">Quiz</button-->
+	<button onclick="next()">selanjutnya</button>
+ </section>
+ 
+  <!-- WEBXR SCENE -->
+<a-scene
+    embedded
+    vr-mode-ui="enabled: true"
+    renderer="antialias: true"
+    webxr="optionalFeatures: hit-test, local-floor"
+  >
+	
+	<a-entity camera look-controls>
+		<a-cursor 
+			fuse="true"
+			fuse-timeout="1500"
+			color="white">
+		</a-cursor>
+	</a-entity>
+	
+	<!-- LIGHT -->
+    <a-entity light="type: ambient; intensity: 0.6"></a-entity>
+    <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
+	
+	<!-- FUTURISTIC GRID -->
+    <a-grid
+      position="0 0 0"
+      rotation="0 0 0"
+      color="#00ffff"
+    ></a-grid>
+	<a-sky color="#02030f"></a-sky>
+
+  <!-- Kubus SISI -->
+  <a-entity id="cube1"
+            position="-5 1 -5"
+            rotation="30 30 0"
+            toggle-net
+            drag-rotate
+			material="emissive: #00ffff; emissiveIntensity: 0.5"
+			animation="property: rotation; to: 360 360 360; loop: true; dur: 8000">
+    <a-box id="top" position="0 0.5 0" rotation="90 0 0"
+             width="1" height="1" depth="0.01" color="#FF3131"></a-box>
+    <a-box id="bottom" position="0 -0.5 0" rotation="-90 0 0"
+             width="1" height="1" depth="0.01" color="#FF3131"></a-box>
+    <a-box id="left" position="-0.5	0 0" rotation= "0 90 0"
+             width="1" height="1" depth="0.01" color="#39FF14"></a-box>
+    <a-box id="right" position="0.5 0 0" rotation="0 -90 0"
+             width="1" height="1" depth="0.01" color="#39FF14"></a-box>
+    <a-box id="front" position="0 0 0.5"
+             width="1" height="1" depth="0.01" color="#00FFFF"></a-box>
+    <a-box id="back" position="0 0 -0.5" rotation="0 0 0"
+             width="1" height="1" depth="0.01" color="#00FFFF"></a-box>
+	</a-entity>
+	
+	<!-- Rusuk Kubus -->
+	<a-entity id="rusuk_kubus" position="0 1 -7.5" 
+			animation="property: rotation; to: 360 360 360; loop: true; dur: 100000">
+	<!-- Rusuk merah -->	
+    <a-box id="M1" position="1 0 0" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>		 
+	<a-box id="M2" position="-1 0 0" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>		 
+	<a-box id="M3" position="1 0 2" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>		 
+	<a-box id="M4" position="-1 0 2" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+	<!-- Rusuk hijau -->
+    <a-box id="H1" position="0 1 0" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>		 
+	<a-box id="H2" position="0 -1 0" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>		 
+	<a-box id="H3" position="0 1 2" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>		 
+	<a-box id="H4" position="0 -1 2" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>		 
+	<!-- Rusuk Biru -->
+	<a-box id="B1" position="1 1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+	<a-box id="B2" position="-1 1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+	<a-box id="B3" position="1 -1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+	<a-box id="B4" position="-1 -1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+    </a-entity>
+	
+	<!-- Kubus SISI -->
+	<a-entity id="cube3"
+            position="5 1 -5"
+            rotation="30 30 0"
+            toggle-net
+            drag-rotate
+			material="emissive: #00ffff; emissiveIntensity: 0.5"
+			animation="property: rotation; to: 360 360 360; loop: true; dur: 20000">
+    <a-box id="top" position="0 1 0" rotation="90 0 0"
+             width="1" height="1" depth="0.01" color="#FF3131"></a-box>
+    <a-box id="bottom" position="0 -1 0" rotation="-90 0 0"
+             width="1" height="1" depth="0.01" color="#FF3131"></a-box>
+    <a-box id="left" position="-1	0 0" rotation= "0 90 0"
+             width="1" height="1" depth="0.01" color="#39FF14"></a-box>
+    <a-box id="right" position="1 0 0" rotation="0 -90 0"
+             width="1" height="1" depth="0.01" color="#39FF14"></a-box>
+    <a-box id="front" position="0 0 1"
+             width="1" height="1" depth="0.01" color="#00FFFF"></a-box>
+    <a-box id="back" position="0 0 -1" rotation="0 0 0"
+             width="1" height="1" depth="0.01" color="#00FFFF"></a-box>
+	</a-entity>
+  
+  <a-text value="SISI KUBUS" position="-5 -1.5 -5" align="center" color="#00ffff" width="6" ></a-text>
+  <a-text value="RUSUK KUBUS" position="0 -1.5 -5" align="center" color="#00ffff" width="6" ></a-text>
+  <a-text value="JARING-JARING KUBUS" position="5 -1.5 -5" align="center" color="#00ffff" width="6" ></a-text>
+  
+
+</a-scene>
+
+<script>
+    function enterXR() {
+      const scene = document.querySelector("a-scene");
+      if (scene.hasLoaded) {
+        scene.enterVR(); // AR / VR tergantung device
+      }
+    }
+
+    function back() {
+      window.location.href = "index.html";
+    }
+	
+	function next(){
+		window.location.href = "about.html";
+	}
+	
+	document.querySelector('#cube1')
+    .addEventListener('click', function () {
+      window.location.href = 'kub1.html';
+    });
+	
+	document.querySelector('#rusuk_kubus')
+    .addEventListener('click', function () {
+      window.location.href = 'kub3.html';
+    });
+	
+	document.querySelector('#cube3')
+    .addEventListener('click', function () {
+      window.location.href = 'kub2.html';
+    });
+  </script>
+</body>
+</html>
