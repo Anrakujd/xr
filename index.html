@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<!-- ************************************************************ -->
+<!-- **        Fakultas Keguruan & Ilmu Pendidikan UNPAR       ** -->
+<!-- ** Program Studi Pendidikan Teknik Informatika & Komputer ** -->
+<!-- **                   Dibuat Oleh :                        ** -->
+<!-- **                     Djukarna                           ** -->
+<!-- **                       Murni                            ** -->
+<!-- **               Ratih Kusumo Wardhani                    ** -->
+<!-- **                    Desember 2025                       ** -->
+<!-- **                    Lisensi CC BY                       ** -->
+<!-- ************************************************************ -->
+
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>WebXR FKIP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+  <style>
+    body { margin: 0; }
+  </style>
+  
+   <!-- SCRIPT -->
+  <script>
+	function showAnimasi() {
+      window.location.href = "index_new.html";
+    }
+	
+	function showLink(){
+		 window.open("https://fkip.unpar.ac.id/", "_blank");
+	}
+  </script>
+  
+</head>
+
+<body>
+ 
+<a-scene cursor="rayOrigin: mouse">
+<!-- Judul dan logo UNPAR -->
+  <a-plane 
+    src="#img-logo"
+    position="-4 8 -7"
+    width="1.25"
+    height="1.25"
+    class="menu"
+	transparent="true"
+    event-set__click="visible: false"
+    onclick="showLink()">
+  </a-plane>
+  
+  <a-text value="FKIP - UNPAR"
+          position="0 8 -7"
+          align="center"
+          color="#00FFFF"
+		  width="20">
+  </a-text>
+  
+  <a-text value="WebXR Pembelajaran Imersif"
+          position="0 6.5 -7"
+          align="center"
+          color="#00FFFF"
+		  width="20">
+  </a-text>
+  <!-- ASSETS -->
+  <a-assets>
+    <!-- ganti src dengan gambar sendiri -->
+    <img id="img-animasi" src="img1.jpg">
+    <img id="img-games" src="img2.jpg">
+    <img id="img-ebook" src="img3.jpg">
+	<img id="img-tatasurya" src="img4.jpg">
+	<img id="img-logo" src="logo.png">
+	<img id="img-eldas" src="img5.jpg">
+	<img id="img-mekanik" src="img6.jpg">
+	<img id="img-komputer" src="komputer.jpg">
+	<img id="img-robot" src="robot.jpg">
+	<img id="img-digital" src="digital.jpg">
+  </a-assets>
+
+  <!-- KAMERA -->
+  <a-entity position="0 1.6 4">
+    <a-camera>
+      <a-cursor 
+		fuse="true"
+		fuse-timeout="1500"
+		color="white">
+	  </a-cursor>
+    </a-camera>
+  </a-entity>
+
+  <!-- LANTAI & LANGIT -->
+  <a-plane rotation="-90 0 0" width="20" height="20" color="#AAAAAA"></a-plane>
+  <a-sky color="#02030f"></a-sky>
+  
+  
+  <!-- ================= GALERI ================= -->
+
+  <!-- PANEL Animasi -->
+  <a-plane 
+    src="#img-animasi"
+    position="-4 2 -5"
+    width="3"
+    height="3"
+    class="menu"
+    event-set__click="visible: false"
+    onclick="showAnimasi()">
+  </a-plane>
+
+  <a-text value="Animasi"
+          position="-4 4 -5"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+
+  <!-- PANEL Games -->
+  <a-plane 
+    src="#img-games"
+    position="0 2 -5"
+    width="3"
+    height="3"
+    onclick="showGame()">
+  </a-plane>
+
+  <a-text value="Game"
+          position="0 4 -5"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+
+  <!-- PANEL e-book -->
+  <a-plane 
+    src="#img-ebook"
+    position="4 2 -5"
+    width="3"
+    height="3"
+    onclick="showBuku()">
+  </a-plane>
+
+  <a-text value="eBook"
+          position="4 4 -5"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+  
+  <!-- PANEL Tata Surya -->
+  <a-plane 
+    src="#img-tatasurya"
+    position="-7 2 -2"
+	rotation = "0 90 0"
+    width="3"
+    height="3"
+    onclick="showTS()">
+  </a-plane>
+
+  <a-text value="Tata Surya"
+          position="-7 4 -2"
+		  rotation = "0 90 0"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+  
+  <!-- PANEL Elektronika -->
+  <a-plane 
+    src="#img-eldas"
+    position="-7 2 2"
+	rotation = "0 90 0"
+    width="3"
+    height="3"
+    onclick="showTS()">
+  </a-plane>
+
+  <a-text value="Elektronika"
+          position="-7 4 2"
+		  rotation = "0 90 0"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+  
+  <!-- PANEL Mekanika -->
+  <a-plane 
+    src="#img-mekanik"
+    position="-7 2 6"
+	rotation = "0 90 0"
+    width="3"
+    height="3"
+    onclick="showTS()">
+  </a-plane>
+
+  <a-text value="Mekanika"
+          position="-7 4 6"
+		  rotation = "0 90 0"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+  
+  <!-- PANEL komputer -->
+  <a-plane 
+    src="#img-komputer"
+    position="7 2 -2"
+	rotation = "0 -90 0"
+    width="3"
+    height="3"
+    onclick="showTS()">
+  </a-plane>
+
+  <a-text value="Komputer"
+          position="7 4 -2"
+		  rotation = "0 -90 0"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+  
+  <!-- PANEL Robotika -->
+  <a-plane 
+    src="#img-robot"
+    position="7 2 2"
+	rotation = "0 -90 0"
+    width="3"
+    height="3"
+    onclick="showTS()">
+  </a-plane>
+
+  <a-text value="Robotika"
+          position="7 4 2"
+		  rotation = "0 -90 0"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+  
+  <!-- PANEL Digital -->
+  <a-plane 
+    src="#img-digital"
+    position="7 2 6"
+	rotation = "0 -90 0"
+    width="3"
+    height="3"
+    onclick="showTS()">
+  </a-plane>
+
+  <a-text value="Sis-Digital"
+          position="7 4 6"
+		  rotation = "0 -90 0"
+          align="center"
+          color="#00FFFF"
+		  width="14">
+  </a-text>
+
+  
+
+</a-scene>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+  function hideAll() {
+    document.querySelector('#prisma').setAttribute('visible', false);
