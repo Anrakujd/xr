@@ -8,7 +8,7 @@ body {
 
 
 .header {
-   position: fixed;
+    position: fixed;
     top: 10px;
     left: 0;
     width: 100%;
@@ -31,7 +31,7 @@ body {
 
 .menu {
   position: fixed;
-  bottom: 20px;
+  bottom: 2px;
   width: 100%;
   text-align: center;
   z-index: 10;
@@ -57,14 +57,14 @@ body {
 }
 
 a-scene {
-  height: 60vh;
+  height: 90vh;
   border-top: 1px solid #00ffff33;
   border-bottom: 1px solid #00ffff33;
   box-shadow: inset 0 0 40px #00ffff33;
 }
 
 footer {
-  font-size: 20px;
+  font-size: 18px;
   padding: 10px;
   opacity: 0.6;
 }
