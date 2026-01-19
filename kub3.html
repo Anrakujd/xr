@@ -185,8 +185,62 @@
 		window.location.href = "index.html";
 	}
 	
-  </script>
-  
+ 	//AFRAME.registerComponent('rotate-on-fuse', {
+	//schema: {
+	//	axis: { type: 'string', default: 'y' },
+	//	target: { type: 'selector' }
+	//},
+
+	//init: function () {
+	//	this.el.addEventListener('click', () => {
+	//	const obj = this.data.target;
+	//	const axis = this.data.axis;
+
+	//	const rot = obj.getAttribute('rotation');
+
+	//		if (axis === 'x') rot.x += 15;
+	//		if (axis === 'y') rot.y += 15;
+	//		if (axis === 'z') rot.z += 15;
+
+	//	obj.setAttribute('rotation', rot);
+    //});
+  //}
+//});
+AFRAME.registerComponent('rotate-on-fuse', {
+  schema: {
+    axis: { type: 'string', default: 'y' },
+    target: { type: 'selector' },
+    speed: { type: 'number', default: 30 } // derajat per detik
+  },
+
+  init: function () {
+    this.rotating = false;
+
+    this.el.addEventListener('mouseenter', () => {
+      this.rotating = true;
+    });
+
+    this.el.addEventListener('mouseleave', () => {
+      this.rotating = false;
+    });
+  },
+
+  tick: function (time, delta) {
+    if (!this.rotating) return;
+
+    const obj = this.data.target;
+    const rot = obj.getAttribute('rotation');
+    const step = this.data.speed * (delta / 1000);
+
+    if (this.data.axis === 'x') rot.x += step;
+    if (this.data.axis === 'y') rot.y += step;
+    if (this.data.axis === 'z') rot.z += step;
+
+    obj.setAttribute('rotation', rot);
+  }
+});
+</script>
+
   <!-- Style -->
   <link rel="stylesheet" href="style.css">
   
@@ -218,9 +272,11 @@
     webxr="optionalFeatures: hit-test, local-floor"
   >	
     <a-entity camera look-controls position="0 4 6">
-      <a-cursor fuse="true"
-			fuse-timeout="1500"
-			color="white"></a-cursor>
+		<a-cursor fuse="true"
+			fuse-timeout="1000"
+			raycaster="objects: .clickable"
+			color="white">
+		</a-cursor>
     </a-entity>
 	
 	<a-entity light="type: ambient; intensity: 0.6"></a-entity>
@@ -237,8 +293,7 @@
 		position="-1 7 1"
 		width="1"
 		height="0.75"
-		class="menu"
-		event-set__click="visible: false"
+		class="clickable"
 		transparent="true"
 		onclick="back()">
 	</a-plane>
@@ -248,8 +303,7 @@
 		position="0 7 1"
 		width="1"
 		height="0.75"
-		class="menu"
-		event-set__click="visible: false"
+		class="clickable"
 		transparent="true"
 		onclick="home()">
 	</a-plane>
@@ -259,17 +313,52 @@
 		position="1 7 1"
 		width="1"
 		height="0.75"
-		class="menu"
-		event-set__click="visible: false"
+		class="clickable"
 		transparent="true"
 		onclick="next()">
 	</a-plane>
 	
+	<!-- XR Controller -->
+	<a-assets>
+		<img id="img-rx" src="RX.png">
+		<img id="img-ry" src="RY.png">
+		<img id="img-rz" src="RZ.png">
+	</a-assets>
 	
+	<a-plane
+		src="#img-rx"
+		position="0.85 0.65 -2"
+		width="1"
+		height="0.65"
+		class="clickable"
+		transparent="true"
+		rotate-on-fuse="axis: x; target: #cube-net; speed: 25">
+	</a-plane>
+	
+	<a-plane
+		src="#img-ry"
+		position="0 1.5 -2"
+		width="0.65"
+		height="1"
+		class="clickable"
+		transparent="true"
+		rotate-on-fuse="axis: y; target: #cube-net; speed: 25">
+	</a-plane>
+	
+	<a-plane
+		src="#img-rz"
+		position="0.85 1.5 -2"
+		width="1"
+		height="1"
+		class="clickable"
+		transparent="true"
+		rotate-on-fuse="axis: z; target: #cube-net; speed: 25">
+	</a-plane>
 	
 	
     <!-- Rusuk merah -->
-    <a-entity cube-net position="0 5 -5" rotate-x-mouse rotate-y-mouse >
+    <!--a-entity cube-net position="0 5 -5" rotate-x-mouse rotate-y-mouse -->
+	<a-entity id="cube-net" cube-net position="0 6 -5">
     <a-box id="M1" position="1 0 0" rotation="90 0 0"
              width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
 			 
