@@ -181,6 +181,9 @@
 	function next(){
 		window.location.href = "index.html";
 	}
+	function home(){
+		window.location.href = "index.html";
+	}
 	
   </script>
   
@@ -192,18 +195,18 @@
 <body>
 <!-- HEADER -->
   <header class="header">
-    <h1>Animasi Rusuk Kubus</h1>
+    <!--h1>Animasi Rusuk Kubus</h1-->
     <h2>Kubus memiliki 12 buah rusuk yang sama panjang</h2>
   </header>
 
-<!-- MENU -->
+<!-- MENU >
   <section class="menu">
     <button onclick="enterXR()">Masuk ke XR Mode</button>
     <button onclick="back()">Sebelumnya</button>
 	<!--button onclick="">Lessons</button>
     <button onclick="">Quiz</button-->
-	<button onclick="next()">Selanjutnya</button>
-  </section>
+	<!--button onclick="next()">Selanjutnya</button-->
+  <!--/section-->
 
  <!-- WEBXR SCENE -->
  <!--a-scene cursor="rayOrigin: mouse"-->
@@ -222,9 +225,51 @@
 	
 	<a-entity light="type: ambient; intensity: 0.6"></a-entity>
     <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
-
+	<!-- Navigasi -->
+	<a-assets>
+		<img id="img-back" src="back icon.png">
+		<img id="img-home" src="home icon.png">
+		<img id="img-next" src="next icon.png">
+	</a-assets>
+		
+	<a-plane
+		src="#img-back"
+		position="-1 1 1"
+		width="1"
+		height="0.75"
+		class="menu"
+		event-set__click="visible: false"
+		transparent="true"
+		onclick="back()">
+	</a-plane>
+	
+	<a-plane
+		src="#img-home"
+		position="0 1 1"
+		width="1"
+		height="0.75"
+		class="menu"
+		event-set__click="visible: false"
+		transparent="true"
+		onclick="home()">
+	</a-plane>
+	
+	<a-plane
+		src="#img-next"
+		position="1 1 1"
+		width="1"
+		height="0.75"
+		class="menu"
+		event-set__click="visible: false"
+		transparent="true"
+		onclick="next()">
+	</a-plane>
+	
+	
+	
+	
     <!-- Rusuk merah -->
-    <a-entity cube-net position="0 4 1" rotate-x-mouse rotate-y-mouse >
+    <a-entity cube-net position="0 5 -5" rotate-x-mouse rotate-y-mouse >
     <a-box id="M1" position="1 0 0" rotation="90 0 0"
              width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
 			 
