@@ -146,10 +146,10 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 </head>
 
 <body>
-<!-- HEADER -->
+<!-- HEADER >
   <header class="header">
     <h2>Kubus memiliki 12 buah rusuk yang sama panjang</h2>
-  </header>
+  </header-->
 
 <a-scene
     embedded
@@ -178,7 +178,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 		
 	<a-plane
 		src="#img-back"
-		position="-1 7 1"
+		position="-1 6 1"
 		width="1"
 		height="0.75"
 		class="clickable"
@@ -188,7 +188,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-home"
-		position="0 7 1"
+		position="0 6 1"
 		width="1"
 		height="0.75"
 		class="clickable"
@@ -198,7 +198,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-next"
-		position="1 7 1"
+		position="1 6 1"
 		width="1"
 		height="0.75"
 		class="clickable"
@@ -215,7 +215,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-rx"
-		position="0.85 0.65 -2"
+		position="0.35 -0.85 -3"
 		width="1"
 		height="0.65"
 		class="clickable"
@@ -225,7 +225,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-ry"
-		position="0 1.5 -2"
+		position="-0.5 0 -3"
 		width="0.65"
 		height="1"
 		class="clickable"
@@ -235,7 +235,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-rz"
-		position="0.85 1.5 -2"
+		position="0.35 0 -3"
 		width="1"
 		height="1"
 		class="clickable"
@@ -245,7 +245,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-openclose"
-		position="0 0.65 -2"
+		position="-0.5 -0.85 -3"
 		width="0.65"
 		height="0.65"
 		class="clickable"
@@ -253,7 +253,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 		toggle-cube-fuse="target: #cube-net; timeout: 100">
 	</a-plane>
    
-	<a-entity id="cube-net" cube-net position="0 6 -5">
+	<a-entity id="cube-net" cube-net position="0 4 -5">
 		<!-- Rusuk merah -->
 		<a-box id="M1" position="1 0 0" rotation="90 0 0"
              width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
