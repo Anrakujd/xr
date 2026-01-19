@@ -20,152 +20,39 @@
   <script>
     //fungsi javascript untuk klik kubus buka dan klik kubus tutup
 	AFRAME.registerComponent('cube-net', {
-      init: function () {
-        this.isOpen = false;
-        this.faces = this.el.children;
+  init: function () {
+    this.isOpen = false;
+    this.faces = this.el.children;
+  },
 
-        this.el.addEventListener('click', () => {
-          this.isOpen = !this.isOpen;
+  toggle: function () {
+    this.isOpen = !this.isOpen;
 
-          const positionsClosed = [
-			'2 0 -1',  	// rusuk merah 1
-			'-2 0 -1',	// rusuk merah 2
-			'2 0 3',	// rusuk merah 3
-			'-2 0 3',	// rusuk merah 4
-			'0 2 -1',	// rusuk hijau 1
-			'0 -2 -1',	// rusuk hijau 2
-			'0 2 3',  	// rusuk hijau 3
-            '0 -2 3',	// rusuk hijau 4
-            '2 2 1',	// rusuk biru 1
-            '-2 2 1',	// rusuk biru 2
-            '2 -2 1',	// rusuk biru 3
-            '-2 -2 1'	// rusuk biru 4
-          ];
+    const closed = [
+      '2 0 -1','-2 0 -1','2 0 3','-2 0 3',
+      '0 2 -1','0 -2 -1','0 2 3','0 -2 3',
+      '2 2 1','-2 2 1','2 -2 1','-2 -2 1'
+    ];
 
-          const positionsOpen = [
-			'1 0 0',  	// rusuk merah 1
-            '-1 0 0',	// rusuk merah 2
-            '1 0 2',	// rusuk merah 3
-            '-1 0 2',	// rusuk merah 4
-            '0 1 0',	// rusuk hijau 1
-            '0 -1 0',	// rusuk hijau 2
-			'0 1 2',  	// rusuk hijau 3
-            '0 -1 2',	// rusuk hijau 4
-            '1 1 1',	// rusuk biru 1
-            '-1 1 1',	// rusuk biru 2
-            '1 -1 1',	// rusuk biru 3
-            '-1 -1 1'	// rusuk biru 4
-          ];
+    const open = [
+      '1 0 0','-1 0 0','1 0 2','-1 0 2',
+      '0 1 0','0 -1 0','0 1 2','0 -1 2',
+      '1 1 1','-1 1 1','1 -1 1','-1 -1 1'
+    ];
 
-          for (let i = 0; i < this.faces.length; i++) {
-            this.faces[i].setAttribute('animation', {
-              property: 'position',
-              to: this.isOpen ? positionsOpen[i] : positionsClosed[i],
-              dur: 100,
-              easing: 'easeInOutQuad'
-            });
-          }
-        });
-      }
-    });
+    for (let i = 0; i < this.faces.length; i++) {
+      this.faces[i].setAttribute('animation__openclose', {
+        property: 'position',
+        to: this.isOpen ? open[i] : closed[i],
+        dur: 400,
+        easing: 'easeInOutQuad'
+      });
+    }
+  }
+});
+
 	
-	//fungsi javascript untuk memutar pada sumbu Y dengan mouse
-	 AFRAME.registerComponent('rotate-y-mouse', {
-      schema: { speed: { default: 0.003 } },
-
-      init: function () {
-        this.dragging = false;
-        this.prevX = 0;
-
-        window.addEventListener('mousedown', e => {
-          this.dragging = true;
-          this.prevX = e.clientX;
-        });
-
-        window.addEventListener('mouseup', () => {
-          this.dragging = false;
-        });
-
-        window.addEventListener('mousemove', e => {
-          if (!this.dragging) return;
-
-          //let deltaX = e.clientX - this.prevX;
-          //this.prevX = e.clientX;
-		  
-		  let deltaX = e.clientX;
-          this.prevX = e.clientX;
-
-          let rotation = this.el.getAttribute('rotation');
-          rotation.y += deltaX * this.data.speed;
-          this.el.setAttribute('rotation', rotation);
-        });
-      }
-    });
 	
-	//fungsi javascript untuk memutar pada sumbu X dengan mouse
-	AFRAME.registerComponent('rotate-x-mouse', {
-      schema: { speed: { default: 0.003 } },
-
-      init: function () {
-        this.dragging = false;
-        this.prevY = 0;
-
-        window.addEventListener('mousedown', e => {
-          this.dragging = true;
-          this.prevY = e.clientY;
-        });
-
-        window.addEventListener('mouseup', () => {
-          this.dragging = false;
-        });
-
-        window.addEventListener('mousemove', e => {
-          if (!this.dragging) return;
-
-          //let deltaY = e.clientY - this.prevY;
-          //this.prevY = e.clientY;
-		  
-		  let deltaY = e.clientY;
-          this.prevY = e.clientY;
-
-          let rotation = this.el.getAttribute('rotation');
-          rotation.x += deltaY * this.data.speed;
-          this.el.setAttribute('rotation', rotation);
-        });
-      }
-    });
-	//rotate isometri
-	AFRAME.registerComponent('drag-rotate', {
-      init: function () {
-        let lastX = null;
-        let lastY = null;
-
-        this.el.sceneEl.addEventListener('mousedown', e => {
-          lastX = e.clientX;
-          lastY = e.clientY;
-        });
-
-        this.el.sceneEl.addEventListener('mousemove', e => {
-          if (lastX !== null) {
-            const dx = e.clientX - lastX;
-            const dy = e.clientY - lastY;
-            const rot = this.el.getAttribute('rotation');
-            this.el.setAttribute('rotation', {
-              x: rot.x + dy * 0.3,
-              y: rot.y + dx * 0.3,
-              z: rot.z
-            });
-            lastX = e.clientX;
-            lastY = e.clientY;
-          }
-        });
-
-        window.addEventListener('mouseup', () => {
-          lastX = null;
-          lastY = null;
-        });
-      }
-    });
 	
 	function enterXR() {
       const scene = document.querySelector("a-scene");
@@ -185,30 +72,9 @@
 		window.location.href = "index.html";
 	}
 	
- 	//AFRAME.registerComponent('rotate-on-fuse', {
-	//schema: {
-	//	axis: { type: 'string', default: 'y' },
-	//	target: { type: 'selector' }
-	//},
-
-	//init: function () {
-	//	this.el.addEventListener('click', () => {
-	//	const obj = this.data.target;
-	//	const axis = this.data.axis;
-
-	//	const rot = obj.getAttribute('rotation');
-
-	//		if (axis === 'x') rot.x += 15;
-	//		if (axis === 'y') rot.y += 15;
-	//		if (axis === 'z') rot.z += 15;
-
-	//	obj.setAttribute('rotation', rot);
-    //});
-  //}
-//});
 AFRAME.registerComponent('rotate-on-fuse', {
   schema: {
-    axis: { type: 'string', default: 'y' },
+	axis: { type: 'string' },
     target: { type: 'selector' },
     speed: { type: 'number', default: 30 } // derajat per detik
   },
@@ -239,6 +105,39 @@ AFRAME.registerComponent('rotate-on-fuse', {
     obj.setAttribute('rotation', rot);
   }
 });
+
+AFRAME.registerComponent('toggle-cube-fuse', {
+  schema: {
+    target: { type: 'selector' },
+    timeout: { type: 'number', default: 100 } // ms
+  },
+
+  init: function () {
+    this.fuseTimer = null;
+
+    this.el.addEventListener('mouseenter', () => {
+      this.fuseTimer = setTimeout(() => {
+        const targetEl = this.data.target;
+        if (!targetEl) return;
+
+        const cube = targetEl.components['cube-net'];
+        if (!cube) return;
+
+        cube.toggle(); // OPEN / CLOSE
+      }, this.data.timeout);
+    });
+
+    this.el.addEventListener('mouseleave', () => {
+      if (this.fuseTimer) {
+        clearTimeout(this.fuseTimer);
+        this.fuseTimer = null;
+      }
+    });
+  }
+});
+</script>
+
+
 </script>
 
   <!-- Style -->
@@ -249,22 +148,9 @@ AFRAME.registerComponent('rotate-on-fuse', {
 <body>
 <!-- HEADER -->
   <header class="header">
-    <!--h1>Animasi Rusuk Kubus</h1-->
     <h2>Kubus memiliki 12 buah rusuk yang sama panjang</h2>
   </header>
 
-<!-- MENU >
-  <section class="menu">
-    <button onclick="enterXR()">Masuk ke XR Mode</button>
-    <button onclick="back()">Sebelumnya</button>
-	<!--button onclick="">Lessons</button>
-    <button onclick="">Quiz</button-->
-	<!--button onclick="next()">Selanjutnya</button-->
-  <!--/section-->
-
- <!-- WEBXR SCENE -->
- <!--a-scene cursor="rayOrigin: mouse"-->
-	<!--a-sky color="#02030f"></a-sky-->
 <a-scene
     embedded
     vr-mode-ui="enabled: true"
@@ -272,7 +158,8 @@ AFRAME.registerComponent('rotate-on-fuse', {
     webxr="optionalFeatures: hit-test, local-floor"
   >	
     <a-entity camera look-controls position="0 4 6">
-		<a-cursor fuse="true"
+		<a-cursor 
+			fuse="true"
 			fuse-timeout="1000"
 			raycaster="objects: .clickable"
 			color="white">
@@ -286,6 +173,7 @@ AFRAME.registerComponent('rotate-on-fuse', {
 		<img id="img-back" src="back icon.png">
 		<img id="img-home" src="home icon.png">
 		<img id="img-next" src="next icon.png">
+		<img id="img-openclose" src="openclose.png">
 	</a-assets>
 		
 	<a-plane
@@ -355,48 +243,48 @@ AFRAME.registerComponent('rotate-on-fuse', {
 		rotate-on-fuse="axis: z; target: #cube-net; speed: 25">
 	</a-plane>
 	
-	
-    <!-- Rusuk merah -->
-    <!--a-entity cube-net position="0 5 -5" rotate-x-mouse rotate-y-mouse -->
-	<a-entity id="cube-net" cube-net position="0 6 -5">
-    <a-box id="M1" position="1 0 0" rotation="90 0 0"
-             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
-			 
-	<a-box id="M2" position="-1 0 0" rotation="90 0 0"
-             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
-			 
-	<a-box id="M3" position="1 0 2" rotation="90 0 0"
-             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
-			 
-	<a-box id="M4" position="-1 0 2" rotation="90 0 0"
-             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
-			 
-	<!-- Rusuk hijau -->
-    <a-box id="H1" position="0 1 0" rotation="-90 0 0"
-             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
-			 
-	<a-box id="H2" position="0 -1 0" rotation="-90 0 0"
-             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
-			 
-	<a-box id="H3" position="0 1 2" rotation="-90 0 0"
-             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
-			 
-	<a-box id="H4" position="0 -1 2" rotation="-90 0 0"
-             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
-			 
-	<!-- Rusuk Biru -->
-	<a-box id="B1" position="1 1 1" rotation="-90 0 0"
-             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
-	<a-box id="B2" position="-1 1 1" rotation="-90 0 0"
-             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
-	<a-box id="B3" position="1 -1 1" rotation="-90 0 0"
-             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
-	<a-box id="B4" position="-1 -1 1" rotation="-90 0 0"
-             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+	<a-plane
+		src="#img-openclose"
+		position="0 0.65 -2"
+		width="0.65"
+		height="0.65"
+		class="clickable"
+		transparent="true"
+		toggle-cube-fuse="target: #cube-net; timeout: 100">
+	</a-plane>
    
+	<a-entity id="cube-net" cube-net position="0 6 -5">
+		<!-- Rusuk merah -->
+		<a-box id="M1" position="1 0 0" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+		<a-box id="M2" position="-1 0 0" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+		<a-box id="M3" position="1 0 2" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+		<a-box id="M4" position="-1 0 2" rotation="90 0 0"
+             width="0.1" height="0.1" depth="2" color="#FF0000"></a-box>
+			 
+		<!-- Rusuk hijau -->
+		<a-box id="H1" position="0 1 0" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+		<a-box id="H2" position="0 -1 0" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+		<a-box id="H3" position="0 1 2" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+		<a-box id="H4" position="0 -1 2" rotation="-90 0 0"
+             width="2" height="0.1" depth="0.1" color="#00FF00"></a-box>
+			 
+		<!-- Rusuk Biru -->
+		<a-box id="B1" position="1 1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+		<a-box id="B2" position="-1 1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+		<a-box id="B3" position="1 -1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
+		<a-box id="B4" position="-1 -1 1" rotation="-90 0 0"
+             width="0.1" height="2" depth="0.1" color="#0000FF"></a-box>
     </a-entity>
 
-    <!--a-plane rotation="-90 0 0" width="10" height="10" color="#ECECEC"></a-plane-->
     <a-light type="ambient" intensity="0.7"></a-light>
     <a-light type="directional" position="1 3 2"></a-light>
 
