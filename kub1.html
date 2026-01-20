@@ -138,9 +138,42 @@ AFRAME.registerComponent('toggle-cube-fuse', {
     });
   }
 });
-</script>
 
+AFRAME.registerComponent('zoom-button', {
+  schema: {
+    direction: { type: 'string' }, // in | out
+    speed: { default: 0.02 }
+  },
 
+  init: function () {
+    this.rig = document.querySelector('#rig');
+    this.zooming = false;
+
+    this.el.addEventListener('mouseenter', () => {
+      this.zooming = true;
+    });
+
+    this.el.addEventListener('mouseleave', () => {
+      this.zooming = false;
+    });
+  },
+
+  tick: function () {
+    if (!this.zooming) return;
+
+    const pos = this.rig.getAttribute('position');
+
+    if (this.data.direction === 'in') {
+      pos.z -= this.data.speed;
+    } else {
+      pos.z += this.data.speed;
+    }
+
+    // batas aman zoom
+    pos.z = Math.min(10, Math.max(1.5, pos.z));
+    this.rig.setAttribute('position', pos);
+  }
+});
 </script>
 
   <!-- Style -->
@@ -160,14 +193,24 @@ AFRAME.registerComponent('toggle-cube-fuse', {
     renderer="antialias: true"
     webxr="optionalFeatures: hit-test, local-floor"
   >	
-    <a-entity camera look-controls position="0 4 6">
+    <!--a-entity camera look-controls position="0 4 6">
 		<a-cursor 
 			fuse="true"
 			fuse-timeout="1000"
 			raycaster="objects: .clickable"
 			color="white">
 		</a-cursor>
-    </a-entity>
+    </a-entity-->
+	
+	<a-entity id="rig" position="0 1.6 5">
+		<a-camera look-controls>
+			<a-cursor
+				fuse="true"
+				fuse-timeout="500"
+				color="#FFC107">
+			</a-cursor>
+		</a-camera>
+	</a-entity>
 	
 	<a-entity light="type: ambient; intensity: 0.6"></a-entity>
     <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
@@ -181,7 +224,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 		
 	<a-plane
 		src="#img-back"
-		position="-1 6 1"
+		position="-1 1 1"
 		width="1"
 		height="0.75"
 		class="clickable"
@@ -191,7 +234,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-home"
-		position="0 6 1"
+		position="0 1 1"
 		width="1"
 		height="0.75"
 		class="clickable"
@@ -201,7 +244,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-next"
-		position="1 6 1"
+		position="1 1 1"
 		width="1"
 		height="0.75"
 		class="clickable"
@@ -210,15 +253,35 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	</a-plane>
 	
 	<!-- XR Controller -->
+	<!-- ZOOM IN -->
+	<a-plane position="5 3.9 -5"
+		src="#img-zout"
+         width="0.5" height="1"
+         color="#4CAF50"
+         text="value: +; align:center; color:black"
+         zoom-button="direction: in; speed: 0.03">
+	</a-plane>
+
+	<!-- ZOOM OUT -->
+	<a-plane position="5 5.1 -5"
+		 src="#img-zin"
+         width="0.5" height="1"
+         color="#F44336"
+         text="value: -; align:center; color:black"
+         zoom-button="direction: out; speed: 0.03">
+	</a-plane>
+	
 	<a-assets>
 		<img id="img-rx" src="RX.png">
 		<img id="img-ry" src="RY.png">
 		<img id="img-rz" src="RZ.png">
+		<img id="img-zin" src="zin.png">
+		<img id="img-zout" src="zout.png">
 	</a-assets>
 	
 	<a-plane
 		src="#img-rx"
-		position="0.35 -0.85 -3"
+		position="-4.65 4.15 -5"
 		width="1"
 		height="0.65"
 		class="clickable"
@@ -228,7 +291,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-ry"
-		position="-0.5 0 -3"
+		position="-5.5 5 -5"
 		width="0.65"
 		height="1"
 		class="clickable"
@@ -238,7 +301,7 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-rz"
-		position="0.35 0 -3"
+		position="-4.65 5 -5"
 		width="1"
 		height="1"
 		class="clickable"
@@ -248,15 +311,16 @@ AFRAME.registerComponent('toggle-cube-fuse', {
 	
 	<a-plane
 		src="#img-openclose"
-		position="-0.5 -0.85 -3"
+		position="-5.5 4.15 -5"
 		width="0.65"
 		height="0.65"
 		class="clickable"
 		transparent="true"
 		toggle-cube-fuse="target: #cube-net; timeout: 100">
 	</a-plane>
+	
    
-	<a-entity id="cube-net" cube-net position="0 4 -5">
+	<a-entity id="cube-net" cube-net position="0 5 -5">
 		<a-box id="top" position="0 1 0" rotation="90 0 0"
              width="2" height="2" depth="0.01" color="#FF0000"></a-box>
 
