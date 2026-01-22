@@ -38,8 +38,18 @@
 
 <body>
  
-<a-scene cursor="rayOrigin: mouse">
+<a-scene renderer="colorManagement: true;" xr-mode-ui="XRMode: xr" cursor="rayOrigin: mouse">
 <!-- Judul dan logo UNPAR -->
+	<a-plane 
+    src="#img-frame1"
+    position="-4 8 -7"
+    width="2.5"
+    height="2.5"
+    class="menu"
+	color="white"
+	transparent="true">
+  </a-plane>
+  
   <a-plane 
     src="#img-logo"
     position="-4 8 -7"
@@ -47,10 +57,9 @@
     height="1.25"
     class="menu"
 	transparent="true"
-    event-set__click="visible: false"
     onclick="showLink()">
   </a-plane>
-  
+   
   <a-text value="FKIP - UNPAR"
           position="0 8 -7"
           align="center"
@@ -67,7 +76,7 @@
   <!-- ASSETS -->
   <a-assets>
     <!-- ganti src dengan gambar sendiri -->
-    <img id="img-animasi" src="img1.jpg">
+    <img id="img-animasi" src="portal.png">
     <img id="img-games" src="img2.jpg">
     <img id="img-ebook" src="img3.jpg">
 	<img id="img-tatasurya" src="img4.jpg">
@@ -77,6 +86,7 @@
 	<img id="img-komputer" src="komputer.jpg">
 	<img id="img-robot" src="robot.jpg">
 	<img id="img-digital" src="digital.jpg">
+	<img id="img-frame1" src="img/glow1.png">
   </a-assets>
 
   <!-- KAMERA -->
@@ -99,12 +109,22 @@
 
   <!-- PANEL Animasi -->
   <a-plane 
+    src="#img-frame1"
+    position="-4 2 -5"
+    width="4.5"
+    height="4.5"
+    class="menu"
+	color="white"
+	transparent="true">
+  </a-plane>
+  
+  <a-plane 
     src="#img-animasi"
     position="-4 2 -5"
-    width="3"
-    height="3"
+    width="2.5"
+    height="2.5"
     class="menu"
-    event-set__click="visible: false"
+	transparent="true"
     onclick="showAnimasi()">
   </a-plane>
 
