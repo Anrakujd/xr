@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<!-- ************************************************************ -->
+<!-- **        Fakultas Keguruan & Ilmu Pendidikan UNPAR       ** -->
+<!-- ** Program Studi Pendidikan Teknik Informatika & Komputer ** -->
+<!-- **                   Dibuat Oleh :                        ** -->
+<!-- **                     Djukarna                           ** -->
+<!-- **                       Murni                            ** -->
+<!-- **               Ratih Kusumo Wardhani                    ** -->
+<!-- **                    Desember 2025                       ** -->
+<!-- **                    Lisensi CC BY                       ** -->
+<!-- ************************************************************ -->
+
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>GXR | Zwei</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- A-Frame (WebXR) -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script>
+	AFRAME.registerComponent('rotate-on-fuse', {
+		schema: {
+		axis: { type: 'string' },
+		target: { type: 'selector' },
+		speed: { type: 'number', default: 30 } // derajat per detik
+	},
+
+	init: function () {
+		this.rotating = false;
+
+    this.el.addEventListener('mouseenter', () => {
+		this.rotating = true;
+    });
+
+    this.el.addEventListener('mouseleave', () => {
+		this.rotating = false;
+    });
+	},
+
+	tick: function (time, delta) {
+		if (!this.rotating) return;
+
+		const obj = this.data.target;
+		const rot = obj.getAttribute('rotation');
+		const step = this.data.speed * (delta / 1000);
+
+		if (this.data.axis === 'x') rot.x += step;
+		if (this.data.axis === 'y') rot.y += step;
+		if (this.data.axis === 'z') rot.z += step;
+
+		obj.setAttribute('rotation', rot);
+  }
+});
+	</script>
+
+  <!-- Style -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- WEBXR SCENE -->
+  <a-scene
+    embedded
+    vr-mode-ui="enabled: true"
+    renderer="antialias: true"
+    webxr="optionalFeatures: hit-test, local-floor"
+  >
+	<!-- Kamera + cursor -->
+	<a-entity camera look-controls position="0 0 0">
+		<a-cursor 
+			fuse="true"
+			fuse-timeout="500"
+			color="red">
+		</a-cursor>
+    </a-entity>
+
+   
+    <!-- LIGHT -->
+    <a-entity light="type: ambient; intensity: 0.6"></a-entity>
+    <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
+
+    
+    <!-- GEOMETRY OBJECT -->
+	<a-text
+      value="Herzberger Quarder"
+      position="0 3 -4"
+      align="center"
+      color="#00ffff"
+      width="6"
+    ></a-text>
+	<a-text
+      value="Auto"
+      position="0 2.5 -4"
+      align="center"
+      color="#00ffff"
+      width="4"
+    ></a-text>
+	
+	<!-- XR Controller -->
+	<a-assets>
+		<img id="img-rx" src="RX.png">
+		<img id="img-ry" src="RY.png">
+		<img id="img-rz" src="RZ.png">
+	</a-assets>
+	
+	<a-plane
+		src="#img-rx"
+		position="0 -2 -5"
+		width="1"
+		height="0.65"
+		class="clickable"
+		transparent="true"
+		rotate-on-fuse="axis: x; target: #dreben; speed: 25">
+	</a-plane>
+	
+	<a-plane
+		src="#img-ry"
+		position="-2.5 0 -5"
+		width="0.65"
+		height="1"
+		class="clickable"
+		transparent="true"
+		rotate-on-fuse="axis: y; target: #dreben; speed: 25">
+	</a-plane>
+	
+	<a-plane
+		src="#img-rz"
+		position="2.5 0 -5"
+		width="1"
+		height="1"
+		class="clickable"
+		transparent="true"
+		rotate-on-fuse="axis: z; target: #dreben; speed: 25">
+	</a-plane>
+	
+	<!-- Kubus Dreben-->
+	<a-entity position="0 0 -6">
+		<a-entity id="dreben" rotation="30 -30 -20">
+			<a-box
+				id="D1"
+				position="-0.5 0 -0.5"
+				depth="1"
+				height="1"
+				width="1"
+				color="#ff0000"
+				material="emissive: #ff0000; emissiveIntensity: 0.5">
+			</a-box>
+			<a-box
+				id="D2"
+				position="0.5 0 -0.5"
+				depth="1"
+				height="1"
+				width="1"
+				color="#00ff00"
+				material="emissive: #00ff00; emissiveIntensity: 0.5">
+			</a-box>
+			<a-box
+				id="D3"
+				position="1.5 0 -0.5"
+				depth="1"
+				height="1"
+				width="1"
+				color="#0000ff"
+				material="emissive: #0000ff; emissiveIntensity: 0.5">
+			</a-box>
+			<a-box
+				id="D4"
+				position="0.5 1 -0.5"
+				depth="1"
+				height="1"
+				width="1"
+				color="#ff00ff"
+				material="emissive: #0000ff; emissiveIntensity: 0.5">
+			</a-box>			
+		</a-entity>
+	</a-entity>
+	
+		
+	<!-- kontrol navigasi-->
+	<a-assets>
+    <img id="img-home" src="portal.png">
+	<img id="img-frame1" src="img/glow1.png">
+	</a-assets>
+	
+	<a-plane 
+    src="#img-frame1"
+    position="-4 3 -5"
+    width="2"
+    height="2"
+    class="menu"
+	color="white"
+	transparent="true">
+	</a-plane>
+	
+	<a-plane 
+    src="#img-home"
+    position="-4 3 -5"
+    width="1"
+    height="1"
+    class="menu"
+	transparent="true"
+	animation="property: rotation; to: 0 0 360; loop: true; dur: 8000"
+    onclick="showAnimasi()">
+	</a-plane>
+	
+	<a-text
+      value="Kembali ke"
+      position="-3.2 3.2 -4"
+      align="center"
+      color="#00FFFF"
+      width="4"
+    ></a-text>
+	<a-text
+      value="Herzberger Quader"
+      position="-3.2 3 -4"
+      align="center"
+      color="#00FFFF"
+      width="4"
+    ></a-text>
+  
+ </a-scene>
+
+<script>
+    function showAnimasi() {
+      window.location.href = "herzberger.html";
+    }
+	
+	function enterXR() {
+      const scene = document.querySelector("a-scene");
+      if (scene.hasLoaded) {
+        scene.enterVR(); // AR / VR tergantung device
+      }
+    }
+
+    function resetScene() {
+      window.location.href = "index.html";
+    }
+	
+	function halaman_about(){
+		window.location.href = "about.html";
+	}
+	
+	document.querySelector('#kubus1')
+    .addEventListener('click', function () {
+      window.location.href = 'kubus_depan.html';
+    });
+	
+	document.querySelector('#balok2')
+    .addEventListener('click', function () {
+      window.location.href = 'index.html';
+    });
+	
+	document.querySelector('#kubus3')
+    .addEventListener('click', function () {
+      window.location.href = 'index.html';
+    });
+</script>
+
+</body>
+</html>

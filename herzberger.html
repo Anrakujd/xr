@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+
+<!-- ************************************************************ -->
+<!-- **        Fakultas Keguruan & Ilmu Pendidikan UNPAR       ** -->
+<!-- ** Program Studi Pendidikan Teknik Informatika & Komputer ** -->
+<!-- **                   Dibuat Oleh :                        ** -->
+<!-- **                     Djukarna                           ** -->
+<!-- **                       Murni                            ** -->
+<!-- **               Ratih Kusumo Wardhani                    ** -->
+<!-- **                    Desember 2025                       ** -->
+<!-- **                    Lisensi CC BY                       ** -->
+<!-- ************************************************************ -->
+
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>GXR | Cube</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- A-Frame (WebXR) -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script>
+	AFRAME.registerComponent('custom-prisma', {
+		init: function () {
+		const shape = new THREE.Shape();
+		shape.moveTo(0, 0);
+		shape.lineTo(1, 0);
+		shape.lineTo(0.5, 0.8);
+		shape.lineTo(0, 0);
+		const geometry = new THREE.ExtrudeGeometry(shape, {
+			depth: 1,
+			bevelEnabled: false
+    });
+		const material = new THREE.MeshStandardMaterial({
+		color: 0x00ff00,
+		metalness: 0.2,
+		roughness: 0.4
+    });
+		const mesh = new THREE.Mesh(geometry, material);
+		//mesh.rotation.x = -Math.PI;
+		mesh.scale.set(0.8, 0.8, 0.8);
+
+		this.el.setObject3D('mesh', mesh);
+	}
+	});
+	
+    function showAnimasi() {
+      window.location.href = "index.html";
+    }
+	</script>
+
+  <!-- Style -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- WEBXR SCENE -->
+  <a-scene
+    embedded
+    vr-mode-ui="enabled: true"
+    renderer="antialias: true"
+    webxr="optionalFeatures: hit-test, local-floor"
+  >
+	<!-- Kamera + cursor -->
+	<a-entity camera look-controls>
+		<a-cursor 
+			fuse="true"
+			fuse-timeout="500"
+			color="red">
+		</a-cursor>
+	</a-entity>
+
+    <!-- CAMERA -->
+    <a-entity camera look-controls position="0 0 0"></a-entity>
+
+    <!-- LIGHT -->
+    <a-entity light="type: ambient; intensity: 0.6"></a-entity>
+    <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
+
+    <a-grid
+      position="0 0 0"
+      rotation="0 0 0"
+      color="#00ffff"
+    ></a-grid>
+	<a-sky color="#02030f"></a-sky>
+	
+    <!-- GEOMETRY OBJECT -->
+	<a-text
+      value="Herzberger Quarder"
+      position="0 3 -4"
+      align="center"
+      color="#00ffff"
+      width="6"
+    ></a-text>
+	
+	<!-- Zwei -->
+	<a-text
+      value="Zwei"
+      position="-3.5 2.75 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<A-entity id="dua" position=" -6 2 -6" onclick="showZwei()">
+		<a-box
+			id="dua1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="dua2"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+	</a-entity>
+	
+	<!-- Drei -->
+	<a-text
+      value="Drei"
+      position="0.5 2.75 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<A-entity id="drei" position=" 0 2 -6" onclick="showDrei()">
+		<a-box
+			id="tiga1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="tiga2"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="tiga3"
+			position="2 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+	</a-entity>
+	
+	<!-- Kubus 3L -->
+	<a-text
+      value="Drei L"
+      position="4 3.4 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<A-entity id="dreiL" position="6 2 -6" onclick="showDreiL()">
+		<a-box
+			id="tigaL1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="tigaL2"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="tigaL3"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>
+	</a-entity>
+	
+	<!-- Kubus Platte-->
+	<a-text
+      value="Platte"
+      position="-3.5 1 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<a-entity id="platte" position="-6 -2 -6" onclick="showPlatte()">
+		<a-box
+			id="P1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="P2"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="P3"
+			position="0 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="P4"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- Kubus Auto-->
+	<a-text
+      value="Auto"
+      position="0.5 1 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<a-entity id="auto" position="0 -2 -6" onclick="showAuto()">
+		<a-box
+			id="auto1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="auto2"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="auto3"
+			position="2 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="auto4"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- Kubus Treppe-->
+	<a-text
+      value="Treppe"
+      position="4.5 1 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	<a-entity id="treppe" position="6 -2 -6" onclick="showTrappe()">
+		<a-box
+			id="T1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="T2"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="T3"
+			position="2 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="T4"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- Kubus Haken-->
+	<a-text
+      value="Haken"
+      position="-3.25 -1.5 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	<a-entity id="haken" position="-6 -6 -6" onclick="showHaken()">
+		<a-box
+			id="H1"
+			position="0 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="H2"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="H3"
+			position="2 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="H4"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- Kubus Stange-->
+	<a-text
+      value="Stange"
+      position="0.75 -1.5 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<a-entity id="stange" position="0 -6 -6" onclick="showStange()">
+		<a-box
+			id="S1"
+			position="3 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="S2"
+			position="0 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="S3"
+			position="2 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="S4"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- Kubus Dreben-->
+	<a-text
+      value="Dreben"
+      position="4.5 -1.5 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<a-entity id="dreben" position="7 -6 -6" onclick="showDreben()">
+		<a-box
+			id="D1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="D2"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="D3"
+			position="0 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="D4"
+			position="0 1.5 -3"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- Kubus Linke-->
+	<a-text
+      value="Linke Hand"
+      position="-6.5 1 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<a-entity id="linke" position="-11 -2 -6" onclick="showLinke()">
+		<a-box
+			id="L1"
+			position="0 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="L2"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="L3"
+			position="0 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="L4"
+			position="0 1.5 -3"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- Kubus Rechte-->
+	<a-text
+      value="Recthe Hand"
+      position="8 1 -6"
+      align="center"
+      color="#00FFFF"
+      width="7"
+    ></a-text>
+	
+	<a-entity id="recthe" position="12 -2 -6" onclick="showRecthe()">
+		<a-box
+			id="L1"
+			position="1 1.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff0000"
+			material="emissive: #ff0000; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="L2"
+			position="1 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#00ff00"
+			material="emissive: #00ff00; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="L3"
+			position="0 2.5 -4"
+			depth="1"
+			height="1"
+			width="1"
+			color="#0000ff"
+			material="emissive: #0000ff; emissiveIntensity: 0.5">
+		</a-box>
+		<a-box
+			id="L4"
+			position="1 1.5 -3"
+			depth="1"
+			height="1"
+			width="1"
+			color="#ff00ff"
+			material="emissive: #ff00ff; emissiveIntensity: 0.5">
+		</a-box>	
+	</a-entity>
+	
+	<!-- kontrol navigasi-->
+	<a-assets>
+    <img id="img-home" src="portal.png">
+	<img id="img-frame1" src="img/glow1.png">
+	</a-assets>
+	
+	<a-plane 
+    src="#img-frame1"
+    position="-4 3 -5"
+    width="2"
+    height="2"
+    class="menu"
+	color="white"
+	transparent="true">
+	</a-plane>
+	
+	<a-plane 
+    src="#img-home"
+    position="-4 3 -5"
+    width="1"
+    height="1"
+    class="menu"
+	transparent="true"
+	animation="property: rotation; to: 0 0 360; loop: true; dur: 8000"
+    onclick="showAnimasi()">
+	</a-plane>
+	
+	<a-text
+      value="Kembali ke"
+      position="-3.2 3.2 -4"
+      align="center"
+      color="#00FFFF"
+      width="4"
+    ></a-text>
+	<a-text
+      value="Prodi PTIK Verse"
+      position="-3.2 3 -4"
+      align="center"
+      color="#00FFFF"
+      width="4"
+    ></a-text>
+  
+	
+
+
+ </a-scene>
+
+
+  <script>
+    function showAnimasi() {
+      window.location.href = "index.html";
+    }
+	
+	function showDreben() {
+      window.location.href = "dreben.html";
+    }
+	
+	function showLinke() {
+      window.location.href = "linke.html";
+    }
+	
+	function showZwei() {
+      window.location.href = "zwei.html";
+    }
+	
+	function showDrei() {
+      window.location.href = "drei.html";
+    }
+	
+	function showDreiL() {
+      window.location.href = "dreiL.html";
+    }
+	
+	function showPlatte() {
+      window.location.href = "Platte.html";
+    }
+	
+	function showAuto() {
+      window.location.href = "auto.html";
+    }
+	
+	function showTreppe() {
+      window.location.href = "treppe.html";
+    }
+	
+	function showRecthe() {
+      window.location.href = "recthe.html";
+    }
+	
+	function showHaken() {
+      window.location.href = "haken.html";
+    }
+	
+	function showStagen() {
+      window.location.href = "stagen.html";
+    }
+	
+	function enterXR() {
+      const scene = document.querySelector("a-scene");
+      if (scene.hasLoaded) {
+        scene.enterVR(); // AR / VR tergantung device
+      }
+    }
+
+    function resetScene() {
+      window.location.href = "index.html";
+    }
+	
+	function halaman_about(){
+		window.location.href = "about.html";
+	}
+	
+	document.querySelector('#kubus1')
+    .addEventListener('click', function () {
+      window.location.href = 'kubus_depan.html';
+    });
+	
+	document.querySelector('#balok2')
+    .addEventListener('click', function () {
+      window.location.href = 'index.html';
+    });
+	
+	document.querySelector('#kubus3')
+    .addEventListener('click', function () {
+      window.location.href = 'index.html';
+    });
+  </script>
+
+</body>
+</html>
