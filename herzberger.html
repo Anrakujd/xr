@@ -14,7 +14,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>GXR | Cube</title>
+  <title>GXR|Herzberger Quader</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- A-Frame (WebXR) -->
@@ -65,7 +65,7 @@
 	<a-entity camera look-controls>
 		<a-cursor 
 			fuse="true"
-			fuse-timeout="500"
+			fuse-timeout="1500"
 			color="red">
 		</a-cursor>
 	</a-entity>
@@ -86,11 +86,18 @@
 	
     <!-- GEOMETRY OBJECT -->
 	<a-text
-      value="Herzberger Quarder"
+      value="Herzberger Quader"
       position="0 3 -4"
       align="center"
       color="#00ffff"
       width="6"
+    ></a-text>
+	<a-text
+      value="Tribute to Gerhard Schulze"
+      position="0 2.7 -4"
+      align="center"
+      color="#00ffff"
+      width="4"
     ></a-text>
 	
 	<!-- Zwei -->
@@ -164,7 +171,7 @@
 	
 	<!-- Kubus 3L -->
 	<a-text
-      value="Drei L"
+      value="DreiL"
       position="4 3.4 -6"
       align="center"
       color="#00FFFF"
@@ -252,13 +259,13 @@
 	<!-- Kubus Auto-->
 	<a-text
       value="Auto"
-      position="0.5 1 -6"
+      position="8 3.4 -6"
       align="center"
       color="#00FFFF"
       width="7"
     ></a-text>
 	
-	<a-entity id="auto" position="0 -2 -6" onclick="showAuto()">
+	<a-entity id="auto" position="12 2 -6" onclick="showAuto()">
 		<a-box
 			id="auto1"
 			position="0 1.5 -4"
@@ -305,7 +312,7 @@
       color="#00FFFF"
       width="7"
     ></a-text>
-	<a-entity id="treppe" position="6 -2 -6" onclick="showTrappe()">
+	<a-entity id="treppe" position="6 -2 -6" onclick="showTreppe()">
 		<a-box
 			id="T1"
 			position="0 1.5 -4"
@@ -546,7 +553,7 @@
 	
 	<a-entity id="recthe" position="12 -2 -6" onclick="showRecthe()">
 		<a-box
-			id="L1"
+			id="R1"
 			position="1 1.5 -4"
 			depth="1"
 			height="1"
@@ -555,7 +562,7 @@
 			material="emissive: #ff0000; emissiveIntensity: 0.5">
 		</a-box>
 		<a-box
-			id="L2"
+			id="R2"
 			position="1 2.5 -4"
 			depth="1"
 			height="1"
@@ -564,7 +571,7 @@
 			material="emissive: #00ff00; emissiveIntensity: 0.5">
 		</a-box>
 		<a-box
-			id="L3"
+			id="R3"
 			position="0 2.5 -4"
 			depth="1"
 			height="1"
@@ -573,7 +580,7 @@
 			material="emissive: #0000ff; emissiveIntensity: 0.5">
 		</a-box>
 		<a-box
-			id="L4"
+			id="R4"
 			position="1 1.5 -3"
 			depth="1"
 			height="1"
@@ -624,16 +631,13 @@
       color="#00FFFF"
       width="4"
     ></a-text>
-  
-	
+
+</a-scene>
 
 
- </a-scene>
-
-
-  <script>
+<script>
     function showAnimasi() {
-      window.location.href = "index.html";
+      window.location.href = "cube.html";
     }
 	
 	function showDreben() {
@@ -657,7 +661,7 @@
     }
 	
 	function showPlatte() {
-      window.location.href = "Platte.html";
+      window.location.href = "platte.html";
     }
 	
 	function showAuto() {
@@ -676,8 +680,8 @@
       window.location.href = "haken.html";
     }
 	
-	function showStagen() {
-      window.location.href = "stagen.html";
+	function showStange() {
+      window.location.href = "stange.html";
     }
 	
 	function enterXR() {
@@ -687,13 +691,7 @@
       }
     }
 
-    function resetScene() {
-      window.location.href = "index.html";
-    }
-	
-	function halaman_about(){
-		window.location.href = "about.html";
-	}
+   /*
 	
 	document.querySelector('#kubus1')
     .addEventListener('click', function () {
@@ -708,8 +706,9 @@
 	document.querySelector('#kubus3')
     .addEventListener('click', function () {
       window.location.href = 'index.html';
-    });
-  </script>
+    });*/
+	
+</script>
 
 </body>
 </html>

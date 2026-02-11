@@ -14,7 +14,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>GXR | Zwei</title>
+  <title>GXR | Drei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- A-Frame (WebXR) -->
@@ -76,12 +76,10 @@
 		</a-cursor>
     </a-entity>
 
-   
     <!-- LIGHT -->
     <a-entity light="type: ambient; intensity: 0.6"></a-entity>
     <a-entity light="type: directional; intensity: 1" position="1 2 1"></a-entity>
 
-    
     <!-- GEOMETRY OBJECT -->
 	<a-text
       value="Herzberger Quarder"
@@ -91,7 +89,7 @@
       width="6"
     ></a-text>
 	<a-text
-      value="Zwei"
+      value="Drei"
       position="0 2.5 -4"
       align="center"
       color="#00ffff"
@@ -112,7 +110,7 @@
 		height="0.65"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: x; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: x; target: #drei; speed: 25">
 	</a-plane>
 	
 	<a-plane
@@ -122,7 +120,7 @@
 		height="1"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: y; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: y; target: #drei; speed: 25">
 	</a-plane>
 	
 	<a-plane
@@ -132,12 +130,12 @@
 		height="1"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: z; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: z; target: #drei; speed: 25">
 	</a-plane>
 	
-	<!-- Kubus Zwei-->
-	<a-entity position="0 0 -6">
-		<a-entity id="zwei" rotation="30 -30 -20">
+	<!-- Kubus Drei-->
+	<a-entity position="-0.5 0 -6">
+		<a-entity id="drei" rotation="30 -30 -20">
 			<a-box
 				id="D1"
 				position="-0.5 0 -0.5"
@@ -155,7 +153,16 @@
 				width="1"
 				color="#00ff00"
 				material="emissive: #00ff00; emissiveIntensity: 0.5">
-			</a-box>	
+			</a-box>
+			<a-box
+				id="D3"
+				position="1.5 0 -0.5"
+				depth="1"
+				height="1"
+				width="1"
+				color="#0000ff"
+				material="emissive: #0000ff; emissiveIntensity: 0.5">
+			</a-box>				
 		</a-entity>
 	</a-entity>
 	
@@ -216,8 +223,8 @@
       }
     }
 
-    /*	
-	document.querySelector('#kubus3')
+	/*
+	document.querySelector('#balok2')
     .addEventListener('click', function () {
       window.location.href = 'index.html';
     });*/

@@ -14,43 +14,45 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>GXR | Zwei</title>
+  <title>GXR | Sistem Koordinat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- A-Frame (WebXR) -->
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script>
 	AFRAME.registerComponent('rotate-on-fuse', {
-		schema: {
-		axis: { type: 'string' },
-		target: { type: 'selector' },
-		speed: { type: 'number', default: 30 } // derajat per detik
-	},
+  schema: {
+    axis: { type: 'string', default: 'y' },
+    target: { type: 'selector' },
+    duration: { type: 'number', default: 300 } // durasi animasi ms
+  },
 
-	init: function () {
-		this.rotating = false;
+  init: function () {
 
     this.el.addEventListener('mouseenter', () => {
-		this.rotating = true;
+
+      const obj = this.data.target;
+      if (!obj) return;
+
+      let rot = obj.getAttribute('rotation');
+
+      // Hitung rotasi baru +90 derajat
+      let newRot = { x: rot.x, y: rot.y, z: rot.z };
+
+      if (this.data.axis === 'x') newRot.x += 90;
+      if (this.data.axis === 'y') newRot.y += 90;
+      if (this.data.axis === 'z') newRot.z += 90;
+
+      // Gunakan animasi supaya smooth
+      obj.setAttribute('animation', {
+        property: 'rotation',
+        to: `${newRot.x} ${newRot.y} ${newRot.z}`,
+        dur: this.data.duration,
+        easing: 'easeInOutQuad'
+      });
+
     });
 
-    this.el.addEventListener('mouseleave', () => {
-		this.rotating = false;
-    });
-	},
-
-	tick: function (time, delta) {
-		if (!this.rotating) return;
-
-		const obj = this.data.target;
-		const rot = obj.getAttribute('rotation');
-		const step = this.data.speed * (delta / 1000);
-
-		if (this.data.axis === 'x') rot.x += step;
-		if (this.data.axis === 'y') rot.y += step;
-		if (this.data.axis === 'z') rot.z += step;
-
-		obj.setAttribute('rotation', rot);
   }
 });
 	</script>
@@ -84,14 +86,14 @@
     
     <!-- GEOMETRY OBJECT -->
 	<a-text
-      value="Herzberger Quarder"
+      value="Sistem Koordinat Ruang"
       position="0 3 -4"
       align="center"
       color="#00ffff"
       width="6"
     ></a-text>
 	<a-text
-      value="Zwei"
+      value="Rotasi Sistem Koordinat Ruang Cartesian"
       position="0 2.5 -4"
       align="center"
       color="#00ffff"
@@ -112,8 +114,16 @@
 		height="0.65"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: x; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: x; target: #zwei; speed: 0.01">
 	</a-plane>
+	
+	<a-text
+		value="Rotasi Sumbu X"
+		position="0 -2.5 -5"
+		align="center"
+		color="#00ffff"
+		width="3">
+	</a-text>
 	
 	<a-plane
 		src="#img-ry"
@@ -122,8 +132,16 @@
 		height="1"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: y; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: y; target: #zwei; speed: 0.01">
 	</a-plane>
+	
+	<a-text
+		value="Rotasi Sumbu Y"
+		position="-2.5 -0.65 -5"
+		align="center"
+		color="#00ffff"
+		width="3">
+	</a-text>
 	
 	<a-plane
 		src="#img-rz"
@@ -132,30 +150,71 @@
 		height="1"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: z; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: z; target: #zwei; speed: 0.01">
 	</a-plane>
 	
-	<!-- Kubus Zwei-->
-	<a-entity position="0 0 -6">
-		<a-entity id="zwei" rotation="30 -30 -20">
-			<a-box
-				id="D1"
-				position="-0.5 0 -0.5"
-				depth="1"
-				height="1"
-				width="1"
-				color="#ff0000"
-				material="emissive: #ff0000; emissiveIntensity: 0.5">
-			</a-box>
-			<a-box
-				id="D2"
-				position="0.5 0 -0.5"
-				depth="1"
-				height="1"
-				width="1"
-				color="#00ff00"
-				material="emissive: #00ff00; emissiveIntensity: 0.5">
-			</a-box>	
+	<a-text
+		value="Rotasi Sumbu Z"
+		position="2.5 -0.65 -5"
+		align="center"
+		color="#00ffff"
+		width="3">
+	</a-text>
+	
+	<!-- Koordinart Ruang-->
+	<a-entity position="0 0 -5">
+		<a-entity id="zwei" rotation="0 0 0">
+			<a-cylinder
+				id="Y"
+				position= "-1 0 -0.5"
+				radius ="0.01"
+				height= "1.5"
+				color="#FFFFFF"
+				material="emissive: #ffffff; emissiveIntensity: 0.5">
+			</a-cylinder>
+			<a-text
+				value="Y"
+				position="-1 1 -0.5"
+				align="center"
+				color="#00ffff"
+				width="5">
+			</a-text>
+			
+			<a-cylinder
+				id="X"
+				rotation="0 0 90"
+				position= "0 -0.5 -0.5"
+				radius ="0.01"
+				height= "2.5"
+				color="#FFFFFF"
+				material="emissive: #ffffff; emissiveIntensity: 0.5">
+			</a-cylinder>
+			<a-text
+				value="X"
+				position="1.5 -0.5 0"
+				align="center"
+				color="#00ffff"
+				width="5">
+			</a-text>
+			
+			<a-cylinder
+				id="Z"
+				rotation="0 -90 90"
+				position= "-1 -0.5 -1"
+				radius ="0.01"
+				height= "1.5"
+				color="#FFFFFF"
+				material="emissive: #ffffff; emissiveIntensity: 0.5">
+			</a-cylinder>
+			
+			<a-text
+				value="Z"
+				position="-1 -0.5 -2"
+				align="center"
+				color="#00ffff"
+				width="5">
+			</a-text>
+			
 		</a-entity>
 	</a-entity>
 	
@@ -206,7 +265,7 @@
 
 <script>
     function showAnimasi() {
-      window.location.href = "herzberger.html";
+      window.location.href = "cube.html";
     }
 	
 	function enterXR() {

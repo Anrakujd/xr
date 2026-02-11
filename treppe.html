@@ -14,7 +14,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <title>GXR | Zwei</title>
+  <title>GXR | Treppe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- A-Frame (WebXR) -->
@@ -55,12 +55,12 @@
 });
 	</script>
 
-  <!-- Style -->
-  <link rel="stylesheet" href="style.css">
+	<!-- Style -->
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <!-- WEBXR SCENE -->
+  <!-- WEBXR SCENE raycaster="objects: .clickable"-->
   <a-scene
     embedded
     vr-mode-ui="enabled: true"
@@ -68,7 +68,7 @@
     webxr="optionalFeatures: hit-test, local-floor"
   >
 	<!-- Kamera + cursor -->
-	<a-entity camera look-controls position="0 0 0">
+	<a-entity camera look-controls >
 		<a-cursor 
 			fuse="true"
 			fuse-timeout="500"
@@ -91,7 +91,7 @@
       width="6"
     ></a-text>
 	<a-text
-      value="Zwei"
+      value="Treppe"
       position="0 2.5 -4"
       align="center"
       color="#00ffff"
@@ -112,7 +112,7 @@
 		height="0.65"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: x; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: x; target: #treppe; speed: 25">
 	</a-plane>
 	
 	<a-plane
@@ -122,7 +122,7 @@
 		height="1"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: y; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: y; target: #treppe; speed: 25">
 	</a-plane>
 	
 	<a-plane
@@ -132,12 +132,12 @@
 		height="1"
 		class="clickable"
 		transparent="true"
-		rotate-on-fuse="axis: z; target: #zwei; speed: 25">
+		rotate-on-fuse="axis: z; target: #treppe; speed: 25">
 	</a-plane>
 	
-	<!-- Kubus Zwei-->
+	<!-- Kubus Treppe-->
 	<a-entity position="0 0 -6">
-		<a-entity id="zwei" rotation="30 -30 -20">
+		<a-entity id="treppe" rotation="30 -30 -20">
 			<a-box
 				id="D1"
 				position="-0.5 0 -0.5"
@@ -149,16 +149,33 @@
 			</a-box>
 			<a-box
 				id="D2"
-				position="0.5 0 -0.5"
+				position="0.5 1 -0.5"
 				depth="1"
 				height="1"
 				width="1"
 				color="#00ff00"
 				material="emissive: #00ff00; emissiveIntensity: 0.5">
+			</a-box>
+			<a-box
+				id="D3"
+				position="-0.5 1 -0.5"
+				depth="1"
+				height="1"
+				width="1"
+				color="#0000ff"
+				material="emissive: #0000ff; emissiveIntensity: 0.5">
+			</a-box>
+			<a-box
+				id="D4"
+				position="-1.5 0 -0.5"
+				depth="1"
+				height="1"
+				width="1"
+				color="#ff00ff"
+				material="emissive: #ff00ff; emissiveIntensity: 0.5">
 			</a-box>	
 		</a-entity>
 	</a-entity>
-	
 		
 	<!-- kontrol navigasi-->
 	<a-assets>
@@ -173,7 +190,8 @@
     height="2"
     class="menu"
 	color="white"
-	transparent="true">
+	transparent="true"
+	onclick="showAnimasi()">
 	</a-plane>
 	
 	<a-plane 
@@ -195,16 +213,17 @@
       width="4"
     ></a-text>
 	<a-text
-      value="Herzberger Quader"
+      value="Prodi PTIK Verse"
       position="-3.2 3 -4"
       align="center"
       color="#00FFFF"
       width="4"
     ></a-text>
-  
+
  </a-scene>
 
-<script>
+
+ <script>
     function showAnimasi() {
       window.location.href = "herzberger.html";
     }
@@ -216,7 +235,17 @@
       }
     }
 
-    /*	
+    /*
+	document.querySelector('#kubus1')
+    .addEventListener('click', function () {
+      window.location.href = 'kubus_depan.html';
+    });
+	
+	document.querySelector('#balok2')
+    .addEventListener('click', function () {
+      window.location.href = 'index.html';
+    });
+	
 	document.querySelector('#kubus3')
     .addEventListener('click', function () {
       window.location.href = 'index.html';
