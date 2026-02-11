@@ -14,7 +14,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>WebXR FKIP</title>
+  <title>WebXR ProPTIK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
@@ -26,7 +26,7 @@
    <!-- SCRIPT -->
   <script>
 	function showAnimasi() {
-      window.location.href = "index_new.html";
+      window.location.href = "cube.html";
     }
 	
 	function showLink(){
@@ -42,7 +42,7 @@
 <!-- Judul dan logo UNPAR -->
 	<a-plane 
     src="#img-frame1"
-    position="-4 8 -7"
+    position="0 10 -7"
     width="2.5"
     height="2.5"
     class="menu"
@@ -52,7 +52,7 @@
   
   <a-plane 
     src="#img-logo"
-    position="-4 8 -7"
+    position="0 10 -7"
     width="1.25"
     height="1.25"
     class="menu"
@@ -60,7 +60,7 @@
     onclick="showLink()">
   </a-plane>
    
-  <a-text value="FKIP - UNPAR"
+  <a-text value="Prodi PTIK Verse"
           position="0 8 -7"
           align="center"
           color="#00FFFF"
@@ -77,8 +77,8 @@
   <a-assets>
     <!-- ganti src dengan gambar sendiri -->
     <img id="img-animasi" src="portal.png">
-    <img id="img-games" src="img2.jpg">
-    <img id="img-ebook" src="img3.jpg">
+    <img id="img-games" src="portal_dimensi.png">
+    <img id="img-ebook" src="ebook.png">
 	<img id="img-tatasurya" src="img4.jpg">
 	<img id="img-logo" src="logo.png">
 	<img id="img-eldas" src="img5.jpg">
@@ -107,7 +107,7 @@
   
   <!-- ================= GALERI ================= -->
 
-  <!-- PANEL Animasi -->
+  <!-- PANEL kubus verse -->
   <a-plane 
     src="#img-frame1"
     position="-4 2 -5"
@@ -125,46 +125,70 @@
     height="2.5"
     class="menu"
 	transparent="true"
+	animation="property: rotation; to: 0 0 360; loop: true; dur: 8000"
     onclick="showAnimasi()">
   </a-plane>
 
-  <a-text value="Animasi"
+  <a-text value="Kubus Verse"
           position="-4 4 -5"
           align="center"
           color="#00FFFF"
-		  width="14">
+		  width="12">
   </a-text>
 
   <!-- PANEL Games -->
+  <a-plane 
+    src="#img-frame1"
+    position="0 2 -5"
+    width="4.5"
+    height="4.5"
+    class="menu"
+	color="white"
+	transparent="true">
+  </a-plane>
   <a-plane 
     src="#img-games"
     position="0 2 -5"
     width="3"
     height="3"
-    onclick="showGame()">
+	transparent="true"
+	animation="property: rotation; to: 0 0 360; loop: true; dur: 5000"
+    onclick="showGame()"
+	>
   </a-plane>
 
-  <a-text value="Game"
+  <a-text value="Game Verse"
           position="0 4 -5"
           align="center"
           color="#00FFFF"
-		  width="14">
+		  width="12">
   </a-text>
 
   <!-- PANEL e-book -->
+  <a-plane 
+    src="#img-frame1"
+    position="4 2 -5"
+    width="4.5"
+    height="4.5"
+    class="menu"
+	color="white"
+	transparent="true">
+  </a-plane>
   <a-plane 
     src="#img-ebook"
     position="4 2 -5"
     width="3"
     height="3"
+	transparent="true"
+	animation="property: rotation; to: 0 0 -360; loop: true; dur: 8000"
     onclick="showBuku()">
   </a-plane>
 
-  <a-text value="eBook"
+  <a-text value="ebook Verse"
           position="4 4 -5"
           align="center"
           color="#00FFFF"
-		  width="14">
+		  width="12">
   </a-text>
   
   <!-- PANEL Tata Surya -->
