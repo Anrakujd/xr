@@ -12,7 +12,7 @@
 <html lang="id">
 <head>
   <meta charset="utf-8">
-  <title>WebXR | KUBUS</title>
+  <title>WebXR | GEOMETRI KUBUS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
@@ -22,18 +22,13 @@
 
 <body>
 <header class="header">
-    <h1>KUBUS</h1>
-    <h2>"Kubus adalah bangun ruang 3 dimensi yang dibatasi oleh 6 sisi berbentuk
-	persegi yang kongruen (sama besar dan sama bentuk), memiliki 12 rusuk yang sama panjang"</h2>
-	<h2>"Pilih bangunan kubus berikut ini untuk melihat animasi sisi, rusuk dan jaring-jaring kubus!"</h2>
+    <h1>GEOMETRI KUBUS</h1>
 </header>
  
  <!-- MENU -->
  <section class="menu">
     <button onclick="enterXR()">Masuk ke XR Mode</button>
     <button onclick="back()">Sebelumnya</button>
-	<!--button onclick="">Lessons</button>
-    <button onclick="">Quiz</button-->
 	<button onclick="next()">selanjutnya</button>
  </section>
  
@@ -44,6 +39,48 @@
     renderer="antialias: true"
     webxr="optionalFeatures: hit-test, local-floor"
   >
+	<a-assets>
+    <img id="img-home" src="portal.png">
+	<img id="img-frame1" src="img/glow1.png">
+	</a-assets>
+	
+	<a-plane 
+    src="#img-frame1"
+    position="-3.75 -4 -5"
+    width="2"
+    height="2"
+    class="menu"
+	color="white"
+	transparent="true">
+	</a-plane>
+	
+	<a-plane 
+    src="#img-home"
+    position="-3.75 -4 -5"
+    width="1"
+    height="1"
+    class="menu"
+	transparent="true"
+	animation="property: rotation; to: 0 0 360; loop: true; dur: 8000"
+    onclick="showAnimasi()">
+	</a-plane>
+	
+	<a-text
+      value="Kembali ke"
+      position="-3 -2.4 -4"
+      align="center"
+      color="#00FFFF"
+      width="4"
+    ></a-text>
+	
+	<a-text
+      value="Kubus Verse"
+      position="-3 -2.55 -4"
+      align="center"
+      color="#00FFFF"
+      width="4"
+    ></a-text>
+	
 	
 	<a-entity camera look-controls>
 		<a-cursor 
@@ -149,7 +186,11 @@
 </a-scene>
 
 <script>
-    function enterXR() {
+    function showAnimasi() {
+      window.location.href = "cube.html";
+    }
+	
+	function enterXR() {
       const scene = document.querySelector("a-scene");
       if (scene.hasLoaded) {
         scene.enterVR(); // AR / VR tergantung device
