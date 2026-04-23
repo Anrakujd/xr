@@ -40,3 +40,12 @@ Developed at **FKIP UNPAR** - *Pendidikan TIK*
 This project is licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)**.
 
 ### How to Attribute
+If you use, remix, or redistribute this source code, you must provide appropriate credit as follows:
+
+**Project Name:** [WebXR Immersive Learning]  
+**Author:** [Your Name / Your Username]  
+**Institution:** ICT Education (Pendidikan TIK), FKIP UNPAR  
+**License:** [CC BY 4.0](https://creativecommons.org)
+
+---
+Developed at **FKIP UNPAR** - *Pendidikan TIK*
