@@ -43,7 +43,7 @@ This project is licensed under the **Creative Commons Attribution 4.0 Internatio
 If you use, remix, or redistribute this source code, you must provide appropriate credit as follows:
 
 **Project Name:** [WebXR Immersive Learning]  
-**Author:** [Your Name / Your Username]  
+**Author:** [Djukarna]  
 **Institution:** ICT Education (Pendidikan TIK), FKIP UNPAR  
 **License:** [CC BY 4.0](https://creativecommons.org)
 
