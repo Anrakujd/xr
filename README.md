@@ -24,7 +24,7 @@ This project leverages the power of WebXR to provide an accessible, browser-base
 2. **Launch a Local Server:**If you use, remix, or redistribute this source code, you must provide appropriate credit as follows:
 
 **Project Name:** [WebXR Immersive Learning]  
-**Author:** [Your Name / Your Username]  
+**Author:** Djukarna  
 **Institution:** ICT Education (Pendidikan TIK), FKIP UNPAR  
 **License:** [CC BY 4.0](https://creativecommons.org)
 
